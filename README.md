@@ -1,4 +1,5 @@
-# REPO   : GK-a2mods/
+# REPO   : GK-a2mods
+
 # BRANCH : GK-a2-137
 
 2025-02-22
