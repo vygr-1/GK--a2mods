@@ -16,6 +16,8 @@ Branch    : GK-a2-137
 
 ## EDIT
 
+RENAMED THIS REPO HERE ON GITHUB : GK-a2mods   
+
 https://github.com/vygr-1/GK-a2mods.git
 
 account   : vygr-1   
