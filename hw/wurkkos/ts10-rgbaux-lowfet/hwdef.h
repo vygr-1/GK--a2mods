@@ -22,7 +22,7 @@
  */
 
 
-#define HWDEF_C  wurkkos/ts10-rgbaux/hwdef.c
+#define HWDEF_C  wurkkos/ts10-rgbaux-lowfet/hwdef.c
 
 
 // allow using aux LEDs as extra channel modes
