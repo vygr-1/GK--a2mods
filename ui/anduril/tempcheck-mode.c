@@ -38,7 +38,7 @@ uint8_t tempcheck_state(Event event, uint16_t arg) {
         ///  mod in the "sofirn/sc31-pro-t1616/anduril.h" :  
               #define USE_VER_CHECK_MODE
          */
-        #elif defined(USE_VER_CHECK_MODE)
+        #if defined(USE_VER_CHECK_MODE)
         set_state(ver_check_state, 0);   ///   ///   ///   ///   ///
 
 
