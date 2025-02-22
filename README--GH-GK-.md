@@ -73,6 +73,20 @@ push big things  . . .
 
 
 
+///   ///   ///   ///   ///
+
+
+2025-02-22 10:57
+
+Bring some "ps1" in, to get the "ddbr" done
+
+xddbr--
+xddbr
+
+docker
+dfp
+buld
+reflash
 
 
 
