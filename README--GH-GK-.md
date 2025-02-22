@@ -81,12 +81,14 @@ push big things  . . .
 Bring some "ps1" in, to get the "ddbr" done
 
 xddbr--
+
 xddbr
 
-docker
-dfp
-buld
-reflash
+
+docker   
+dfp   
+buld   
+reflash   
 
 
 
