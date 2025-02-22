@@ -7,7 +7,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 
-/////////////////////////////////////////////////////////////
+///   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///   
 
 
 #pragma once
@@ -30,13 +30,37 @@
 /// OG: 
 ///  #include "anduril/version.h"   
 ///   Mod : 
-#include ".build-anduril/version.h"
+#include ".build/anduril/version.h"
 
 
 
 /// const PROGMEM uint8_t version_number[] = MODEL_NUMBER "." VERSION_NUMBER;
 /// const PROGMEM uint8_t ver_number[] = MODEL_NUMBER "." VERSION_NUMBER;
 const PROGMEM uint8_t ver_number[] = ".." MODEL_NUMBER ".." VERSION_NUMBER "..." ;
+
+
+
+/// uint8_t version_check_state(Event event, uint16_t arg);
+uint8_t ver_check_state(Event event, uint16_t arg);
+
+inline void ver_check_iter();
+
+
+
+
+
+
+///   END   
+
+
+
+
+
+///   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///   
+///   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///   
+///   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///   
+
+
 
 
 
@@ -66,20 +90,5 @@ __3131__25-01-25__13-42___
  */
 
 
-
-
-
-
-/// uint8_t version_check_state(Event event, uint16_t arg);
-uint8_t ver_check_state(Event event, uint16_t arg);
-
-inline void ver_check_iter();
-
-
-
-
-
-
-///   END   
 
 
