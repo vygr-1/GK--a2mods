@@ -15,6 +15,12 @@ README--a2-137.md
 ---
 
 
+2025-02-23 17:56
+
+README--gk-137.md  
+---
+
+
 This is a secondary README file, contains info on the mods of this specific branch, a2-137.  
 
 Please bear in mind, I'm still learning/playing with this Git, GitHub, GitHub Desktop, PuppyGit thingy ...   
@@ -46,13 +52,15 @@ my wurkkos build targets:
 7. wurkkos-ts25
 
 
+
 i will not be able to test all of them.
-my wurkkos units:
+i only have a few wurkkos units:
 1. wurkkos-ts10
-2. wurkkos-ts10-rgbaux (wurrkos ts 10 v2 ?) (wurkkos hd10?)
-3. wurkkos-ts11
-4. wurkkos-ts21
-5. wurkkos-ts25
+2. wurkkos-ts10-v2  (ts10-rgbaux ?)
+3. wurkkos hd10     (ts10-rgbaux ?)
+4. wurkkos-ts11
+5. wurkkos-ts21
+6. wurkkos-ts25
 
 
 
