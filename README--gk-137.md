@@ -15,34 +15,85 @@ README--a2-137.md
 ---
 
 
-2025-02-23 17:56
+.   
+.   
+.   
+
+2025-02-23 
 
 README--gk-137.md  
 ---
 
+**BEWARE!**  
+**THIS README IS A MESS.**
 
-This is a secondary README file, contains info on the mods of this specific branch, a2-137.  
 
-Please bear in mind, I'm still learning/playing with this Git, GitHub, GitHub Desktop, PuppyGit thingy ...   
+This is a secondary README file, contains info on the mods of this specific branch, gk-137.  
+
+I was using GitKraken on my laptop, click this and that, created a local repo, created a remote repo, playing around, etc. etc.  
+
+
+And created a remote repo: **GK-a2mods**.  
+With a branch in it: **GK-a2-137**.  
+Or was it gk-a2-137?  
+I'm not sure.  
+I'm kinda lost.  
+
+
+On my android phone I created another branch on this remote repo. The new branch is **gk-137**.  
+I use PuppyGit on my phone. 
+Deleted the older branch. Blah blah blah ...
+
+So, now this **GK-a2mods** repo has one branch. 
+
+
+https://github.com/vygr-1/GK-a2mods
+
+[vygr-1 GK-a2mods repository](https://github.com/vygr-1/GK-a2mods)
+
+Want to clone this repo? No, you don't.  
+https://github.com/vygr-1/GK-a2mods.git 
+
+[This repo has 1 branch:](https://github.com/vygr-1/GK-a2mods/branches/all)
+
+[GK-a2mods one branch (https://github.com/vygr-1/GK-a2mods)](https://github.com/vygr-1/GK-a2mods)
+
+
+
+
+
+
+Please bear in mind, I'm still learning this Git, GitHub, GitHub Desktop, git GUI, PuppyGit, etc. etc.  ...   
+
+I often get lost and accidentally/unintentionally doing weird things, e.g. create a new branch instead of push to the existing one. 
+Create new repo. Copying. Cloning. 
+
 
 If you try to compile from this source, it may not work as intended, or it may NOT work at all. 
 
 
-###   ###   ###   ###   ###   ###   ### 
+
+###   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///  
+###   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///  
+###   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///  
+
 
 
 2025-02-23
 ---
 
-a major milestone on this branch
-test compile some build targets
+A major milestone on this branch.  
+Test compiled some build targets. 
 
-all of my wurkkos build targess compiled OK.
-there were some orrors and failure with wurkkos-ts10-rgbaux and wurkkos-ts10-rgbaux-lowfet.
-problems with the anduril.h, hwdef.h, hwdef.c files.
-not very diffiult to solve.
+All of my wurkkos build targess compiled OK.
 
-my wurkkos build targets:
+There were some errors and failures with wurkkos-ts10-rgbaux and wurkkos-ts10-rgbaux-low fet.  
+
+Problems with the anduril.h, hwdef.h, hwdef.c files.
+
+Not very diffiult to solve.
+
+My wurkkos build targets:
 1. wurkkos-fc11
 2. wurkkos-ts10
 3. wurkkos-ts10-rgbaux
@@ -53,20 +104,38 @@ my wurkkos build targets:
 
 
 
-i will not be able to test all of them.
-i only have a few wurkkos units:
+I will not be able to test all of them.
+I only have a few wurkkos units:
 1. wurkkos-ts10
 2. wurkkos-ts10-v2  (ts10-rgbaux ?)
-3. wurkkos hd10     (ts10-rgbaux ?)
+3. wurkkos hd10       (ts10-rgbaux ?)
 4. wurkkos-ts11
 5. wurkkos-ts21
 6. wurkkos-ts25
 
 
 
-this branch is anduril2 with some mods,
+I have updated my Sofirn SC31 Pro t1616. But recently don't play much with it. Recently I more ofter doing reflash on my TS11 and TS25.  
+Mainly TS25, playing/experimenting/modding anduril2 on it.  
+
+
+
+###   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///  
+###   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///  
+###   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///  
+
+
+
+This branch is anduril2 with some mods,
 quite a lot of mods, but it has the same file structure
-as the stock ToyKeeper anduril2.
+as the original ToyKeeper anduril2.
+
+[ToyKeeper anduril (https://github.com/ToyKeeper/anduril)](https://github.com/ToyKeeper/anduril) 
+
+
+
+###   ///   ///   ///   ///   ///   ///   ///   ///   ///   ///  
+
 
 
 For comparison, my other branch, a-327, a-331,
@@ -76,33 +145,63 @@ it doesn't have ui/ directory. i moved anduril/ directory
 up to the root,
 and deleted everything else including the ui/ directory.
 
-it became something like this:
+
+It's something like this:
+
+```
    .build-anduril/
    arch/
    anduril/
    bin/
+   dfp/
    docs/
    fsm/
    hw/
     -wurkkos-ts10/
     -wurkkos-ts11/
     -etc. etc.
+```
+
+
+Hei, why am i talking about a2-325 branch here?
+That branch is no longer exists. But there's similar branch in another repo:
+
+**a2mods**  Repository:
+
+https://github.com/vygr-1/a2mods
+
+[vygr-1 a2mods repository](https://github.com/vygr-1/a2mods)
+
+Want to clone this repo?  I don't think so.  
+https://github.com/vygr-1/a2mods.git
+
+[This repo has 1 branch:](https://github.com/vygr-1/a2mods/branches/all)
+
+[a2mods, one branch (https://github.com/vygr-1/a2mods)](https://github.com/vygr-1/a2mods)
 
 
 
-hei, why am i talking about a2-325 branch here?
-it's just for comparison, and my learning.
-a2-325, a2-327, a2-331, those are crazy.
-they are in another repo.
-this git and github things are also crazy.
-github desktop, git gui, gitkraken, puppygit ...
-puppygit on android is fun, i love it.
-and i prefer gitkraken on my laptop.
-i accidentally created a new brach
+It's just for comparison here, and my own learning.
+a2-325, a2-327, a2-331, those are crazy.  
+They are in another repo.
+
+Update: only one crazy branch is left: **a2-327** in **a2mods** repo. 
+
+This Git and GitHub things are also crazy.  
+I mean it's crazy to me, I often get lost. 
+So many things to learn. 
+
+GitHub Desktop, git GUI, GitKraken, PuppyGit  ...
+
+PuppyGit on android is fun, i love it. 
+And I prefer GitKraken when on my laptop. 
+I accidentally created a new brach
 instead of doing a push to the exixting branch.
-created a new repo instead of a push to an exixting branch.
-what a mess. what a headache. LoL !
 
+Created a new repo instead of a push to an exixting branch. 
+What a mess. What a headache. What a LoL !
+
+This GK-a2mods, it's me fooling around with GitKraken on my laptop. 
 
 
 
@@ -110,10 +209,11 @@ what a mess. what a headache. LoL !
 .   
 .   
 
-Edit README--a2-137.md  
+
+Edit README--gk-137.md  
 ---
 
-2025-02-19   
+   
 
 OK, let's get it going...   
 
@@ -132,24 +232,19 @@ The OG [ToyKeeper Anduril2](https://github.com/ToyKeeper/anduril).
 
 accessing through Git GUI on Desktop
 
-.   
-
-Checks 
-
-2025-02-22 07.09.28
-
-2025-02-22 07.10.57
-
 
 .   
 .   
 .   
+
+# Mods, Custom Features, etc. 
+
 
 New Files  
 ---
 
 
-There are two new files, ver-check-mode,  
+There are two new files, these are for the ver-check-mode,  
 custom version check mode in blinky group 
 -  ui/anduril/ver-check-mode.c  
 -  ui/anduril/ver-check-mode.h  
@@ -196,6 +291,7 @@ candle-mode with more adjustments, using starryalley's candle-mode.c:
 .   
 
 BIG-DEAL button mapping:   
+
 OFF or ON, 3C : strobe-modes  
 OFF, 5C : battcheck-mode (blinky group)   
 Mod files:   
@@ -225,8 +321,6 @@ Custom version-check-mode.h
 
 
 ###  This is a rough outline / plan, the actual features implementation are TBD   
-
-
 
 
 # CUSTOM FEATURES   
@@ -412,6 +506,12 @@ Checks checks
 
 2025-02-21 18.03.42
 
+
+Checks 
+
+2025-02-22 07.09.28
+
+2025-02-22 07.10.57
 
 
 
