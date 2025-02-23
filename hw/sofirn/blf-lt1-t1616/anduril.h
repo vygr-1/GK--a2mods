@@ -139,7 +139,7 @@
 
 
 // the default of 26 looks a bit flat, so increase it
-#define CANDLE_AMPLITUDE 40
+// #define CANDLE_AMPLITUDE 40
 
 
 
@@ -156,7 +156,7 @@
 
 
 // party strobe, tac strobe, police, lightning, candle, bike
-#define DEFAULT_STROBE_CHANNELS  CM_BOTH,CM_BOTH,CM_BOTH,CM_AUTO,CM_AUTO,CM_AUTO
+// #define DEFAULT_STROBE_CHANNELS  CM_BOTH,CM_BOTH,CM_BOTH,CM_AUTO,CM_AUTO,CM_AUTO
 
 // the sensor (attiny1616) is nowhere near the emitters
 // so thermal regulation can't work
@@ -195,14 +195,16 @@
 #undef USE_PARTY_STROBE_MODE
 #undef USE_TACTICAL_STROBE_MODE
 #undef USE_FIREWORK_MODE
-
+#undef USE_LIGHTNING_MODE
 #undef USE_LIGHTHOUSE_MODE
 #undef USE_CANDLE_MODE
+#undef USE_CANDLE_MODE
+
+
+#undef USE_BAD_FLUORESCENT_MODE
 
  */
 
-#undef USE_LIGHTNING_MODE
-#undef USE_BAD_FLUORESCENT_MODE
 
 
 
