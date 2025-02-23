@@ -11,22 +11,98 @@ README02.md
 .   
 .   
 
-README--a2-135.md  
+README--a2-137.md  
 ---
 
 
-This is a secondary README file, contains info on the mods of this specific branch, a2-135.  
+This is a secondary README file, contains info on the mods of this specific branch, a2-137.  
 
 Please bear in mind, I'm still learning/playing with this Git, GitHub, GitHub Desktop, PuppyGit thingy ...   
 
 If you try to compile from this source, it may not work as intended, or it may NOT work at all. 
 
 
+###   ###   ###   ###   ###   ###   ### 
+
+
+2025-02-23
+---
+
+a major milestone on this branch
+test compile some build targets
+
+all of my wurkkos build targess compiled OK.
+there were some orrors and failure with wurkkos-ts10-rgbaux and wurkkos-ts10-rgbaux-lowfet.
+problems with the anduril.h, hwdef.h, hwdef.c files.
+not very diffiult to solve.
+
+my wurkkos build targets:
+1. wurkkos-fc11
+2. wurkkos-ts10
+3. wurkkos-ts10-rgbaux
+4. wurkkos-ts10-rgbaux-lowfet
+5. wurkkos-ts11
+6. wurkkos-ts21
+7. wurkkos-ts25
+
+
+i will not be able to test all of them.
+my wurkkos units:
+1. wurkkos-ts10
+2. wurkkos-ts10-rgbaux (wurrkos ts 10 v2 ?) (wurkkos hd10?)
+3. wurkkos-ts11
+4. wurkkos-ts21
+5. wurkkos-ts25
+
+
+
+this branch is anduril2 with some mods,
+quite a lot of mods, but it has the same file structure
+as the stock ToyKeeper anduril2.
+
+
+For comparison, my other branch, a-327, a-331,
+in another repo,
+it was my experiment with moving some files and folders.
+it doesn't have ui/ directory. i moved anduril/ directory 
+up to the root,
+and deleted everything else including the ui/ directory.
+
+it became something like this:
+   .build-anduril/
+   arch/
+   anduril/
+   bin/
+   docs/
+   fsm/
+   hw/
+    -wurkkos-ts10/
+    -wurkkos-ts11/
+    -etc. etc.
+
+
+
+hei, why am i talking about a2-325 branch here?
+it's just for comparison, and my learning.
+a2-325, a2-327, a2-331, those are crazy.
+they are in another repo.
+this git and github things are also crazy.
+github desktop, git gui, gitkraken, puppygit ...
+puppygit on android is fun, i love it.
+and i prefer gitkraken on my laptop.
+i accidentally created a new brach
+instead of doing a push to the exixting branch.
+created a new repo instead of a push to an exixting branch.
+what a mess. what a headache. LoL !
+
+
+
+
 .   
 .   
 .   
 
-Edit README--a2-135.md  
+Edit README--a2-137.md  
 ---
 
 2025-02-19   
