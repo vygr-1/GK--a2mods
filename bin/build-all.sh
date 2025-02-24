@@ -51,22 +51,19 @@ function main {
 
 
 
-        ##  build announcement, a little mod 
         # announce what we're going to build
         ##  OG: echo "===== $UI $REV : $NAME ====="
         ###  mod:  
-        echo "   "
-        echo "   "
-        echo "###   ###   ###   ###   ###   ###   ###   ###   ###   ###"
-        echo "   "
-        echo "   "
+        echo " "
+        echo " "
         echo "===== $UI $REV : $NAME ====="
-        echo "   "
 
 
 
         ##  adding BUILDDATE to the hex file name 
         BUILDDATE=$( date -d '7 hours' '+%y%m%d.%H%M%S' )
+
+
 
         # try to compile, track result, and rename compiled files
         if bin/build.sh "$TARGET" ; then
@@ -79,91 +76,66 @@ function main {
 
             MD5=$(md5sum "$HEX_OUT" | cut -d ' ' -f 1)
 
-            ##  OG:  echo "  # $MD5"
-            ##  OG:  echo "  > $HEX_OUT"
-
             ###  mod:  
-            echo "   "
-            echo "  # $MD5"
-            echo "  > $HEX_OUT"
-            echo "   "
-            echo "  OK: $NAME build succeeded"
-
-
+            echo " "
+            echo "    # $MD5"
+            echo "    > $HEX_OUT"
+            echo " "
+            echo "    OK: $NAME build succeeded"
 
             PASS=$((PASS + 1))
             PASSED="$PASSED $NAME."
 
-
-
         else
 
             ##  OG:  echo "ERROR: build failed"
-
             ##  mod:  
-            echo "   "
-            echo "  ERROR: build failed"
-
+            echo " "
+            echo "    ERROR: build failed"
 
             FAIL=$((FAIL + 1))
             FAILED="$FAILED $NAME."
         fi
-
     done
 
 
 
-
-
+    # SUMMARY
     # summary
-    ##  OG:  echo "===== $PASS builds succeeded, $FAIL failed ====="
-
+    ## OG:  echo "===== $PASS builds succeeded, $FAIL failed ====="
     ###  mod:  
-    echo "   "
-    echo "   "
-    echo "###   ###   ###   ###   ###   ###   ###   ###   ###   ###"
-    echo "   "
-    echo "   "
+    echo " "
+    echo " "
     echo "===== $PASS builds succeeded, $FAIL failed ====="
-    echo "   "
-    echo "   "
 
 
 
-    ##  OG:  #echo "PASS: $PASSED"
-    ##  OG:  if [ 0 != $FAIL ]; then
-        ##  OG:  echo "FAIL:$FAILED"
-        ##  OG:  exit 1
-    ##  OG:  fi
-##  OG:  }
-
-    ###  mod:  
-
-    ## PASS
+    ###  PASS
     if [ 0 != $PASS ]; then
 
+        echo " "
         echo "SUCCEEDED: $PASSED"
-        echo "   "
-        echo "   "
 
     fi
 
-    ## FAIL
+
+
+    ###  FAIL
     if [ 0 != $FAIL ]; then
 
+        echo " "
         echo "FAILED   : $FAILED"
-        echo "   "
-        echo "   "
 
     fi
 
 
 
-    ##  end / border
-    echo "###   ###   ###   ###   ###   ###   ###   ###   ###   ###"
-    echo "   "
-    echo "   "
-    echo "   "
+    ###  end / border
+    echo " "
+    echo "=============   COMPLETE   ============= "
+    echo " "
+    echo " "
+
 
     exit 1
 

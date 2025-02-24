@@ -550,16 +550,13 @@ Last digit :
 #undef USE_TACTICAL_STROBE_MODE
 
 #undef USE_LIGHTNING_MODE
-
+#undef USE_CANDLE_MODE
 
 #undef USE_BAD_FLUORESCENT_MODE
 #undef USE_FIREWORK_MODE
 #undef USE_LIGHTHOUSE_MODE
 
  */
-
-#undef USE_CANDLE_MODE
-
 
 
 
@@ -589,8 +586,6 @@ Last digit :
 
  */
 #define USE_BEACONN_MODE
-
-
 
 
 

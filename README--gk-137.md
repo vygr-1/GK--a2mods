@@ -15,6 +15,39 @@ README--a2-137.md
 ---
 
 
+
+.   
+.   
+.   
+
+
+
+2025-02-24 
+
+README--gk-137.md  
+---
+
+NOTE:
+- unable to compile ts25 with candle-mode enabled.
+- all other features are OK 
+   - ver-check-mode (custom version-check-mode in blinky group) OK,
+   - BEACONN-mode (BEACON-MODE IN STROBE GROUP) OK. 
+
+- compile ts25 with candle-mode enabled: failed.
+- edit some files, test compile again: OK.
+- edited filess:
+-   candle-mode.h : additional lines copied from  starryalley  candle-mode.h 
+-   misc.c  :  additional lines copied from  starryalley  misc.c 
+-   misc.h  :  additional lines copied from  starryalley  misc.h 
+
+
+
+
+
+
+
+
+
 .   
 .   
 .   

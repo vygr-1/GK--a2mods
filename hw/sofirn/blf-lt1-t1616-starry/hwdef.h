@@ -12,7 +12,7 @@
  * Voltage:    VCC
  */
 
-#define HWDEF_C  sofirn/blf-lt1-t1616/hwdef.c
+#define HWDEF_C  sofirn/blf-lt1-t1616-starry/hwdef.c    ///  #define HWDEF_C  sofirn/blf-lt1-t1616/hwdef.c
 
 // allow using aux LEDs as extra channel modes
 #include "fsm/chan-aux.h"
