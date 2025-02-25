@@ -28,7 +28,10 @@ README--gk-137.md
 ---
 
 NOTE:
-- unable to compile ts25 with candle-mode enabled.
+
+unable to compile ts25 with candle-mode enabled
+---
+
 - all other features are OK 
    - ver-check-mode (custom version-check-mode in blinky group) OK,
    - BEACONN-mode (BEACON-MODE IN STROBE GROUP) OK. 
