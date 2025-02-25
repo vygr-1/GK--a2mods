@@ -38,10 +38,10 @@ unable to compile ts25 with candle-mode enabled
 
 - compile ts25 with candle-mode enabled: failed.
 - edit some files, test compile again: OK.
-- edited filess:
--   candle-mode.h : additional lines copied from  starryalley  candle-mode.h 
--   misc.c  :  additional lines copied from  starryalley  misc.c 
--   misc.h  :  additional lines copied from  starryalley  misc.h 
+  - edited filess:
+    - candle-mode.h : additional lines copied from  starryalley  candle-mode.h 
+    - misc.c  :  additional lines copied from  starryalley  misc.c 
+    - misc.h  :  additional lines copied from  starryalley  misc.h 
 
 
 
@@ -61,7 +61,8 @@ README--gk-137.md
 ---
 
 **BEWARE!**  
-**THIS README IS A MESS.**
+**THIS README IS A MESS.**  
+**THIS REPO IS A MESS. BUT USABLE. ALL BUILD TAREGTS COMPILE OK.**
 
 
 This is a secondary README file, contains info on the mods of this specific branch, gk-137.  
@@ -77,8 +78,9 @@ I'm kinda lost.
 
 
 On my android phone I created another branch on this remote repo. The new branch is **gk-137**.  
-I use PuppyGit on my phone. 
-Deleted the older branch. Blah blah blah ...
+I use PuppyGit on my phone.  
+Deleted the older branch.  
+Blah blah blah ...
 
 So, now this **GK-a2mods** repo has one branch. 
 
