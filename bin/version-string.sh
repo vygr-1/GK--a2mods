@@ -54,7 +54,9 @@ function c-version-string {
 
 
 
-    REVDATE=$( date -d '7 hours' '+%y.%m.%d..%H.%M' )  
+    #  REVDATE=$( date -d '7 hours' '+%y.%m.%d..%H.%M' )  
+    #  2025-03-08 MOD:
+    REVDATE=$( date '+%y.%m.%d..%H.%M' )  
 
     # handle an empty name (can happen during github action runs)
     if [[ -z "$REV" ]]; then

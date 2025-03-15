@@ -53,20 +53,20 @@ function main {
 
         # announce what we're going to build
         ##  OG: echo "===== $UI $REV : $NAME ====="
-        ###  mod: 
+        ###  mod:  
+        echo " "
         echo " "
         echo "===== $UI $REV : $NAME ====="
-        echo " "
-
-
 
 
 
         ##  adding BUILDDATE to the hex file name 
-        ##  BUILDDATE=$( date -d '7 hours' '+%y%m%d.%H%M%S' )
-        ##  2025-03-08
-        ##  for compiling in WSL:
+        ##  $BUILDDATE=$( date -d '7 hours' '+%y%m%d.%H%M%S' )
+        ##
+        ##  2025-03-08:
         BUILDDATE=$( date '+%y%m%d.%H%M%S' )
+
+
 
         # try to compile, track result, and rename compiled files
         if bin/build.sh "$TARGET" ; then
@@ -79,10 +79,12 @@ function main {
 
             MD5=$(md5sum "$HEX_OUT" | cut -d ' ' -f 1)
 
-            ###  mod: 
-            echo "  # $MD5"
-            echo "  > $HEX_OUT"
-            echo "  OK: $NAME build succeeded"
+            ###  mod:  
+            echo " "
+            echo "    # $MD5"
+            echo "    > $HEX_OUT"
+            echo " "
+            echo "    OK: $NAME build succeeded"
 
             PASS=$((PASS + 1))
             PASSED="$PASSED $NAME."
@@ -90,8 +92,9 @@ function main {
         else
 
             ##  OG:  echo "ERROR: build failed"
-            ##  mod: 
-            echo "  ERROR: build failed"
+            ##  mod:  
+            echo " "
+            echo "    ERROR: build failed"
 
             FAIL=$((FAIL + 1))
             FAILED="$FAILED $NAME."
@@ -101,8 +104,10 @@ function main {
 
 
     # SUMMARY
-    # SUMMARY
     # summary
+    ## OG:  echo "===== $PASS builds succeeded, $FAIL failed ====="
+    ###  mod:  
+    echo " "
     echo " "
     echo "===== $PASS builds succeeded, $FAIL failed ====="
 
@@ -111,7 +116,6 @@ function main {
     ###  PASS
     if [ 0 != $PASS ]; then
 
-        ###
         echo " "
         echo "SUCCEEDED: $PASSED"
 
@@ -122,7 +126,7 @@ function main {
     ###  FAIL
     if [ 0 != $FAIL ]; then
 
-        ### echo " "
+        echo " "
         echo "FAILED   : $FAILED"
 
     fi
@@ -130,13 +134,14 @@ function main {
 
 
     ###  end / border
-    echo "  "
-    echo "==============   COMPLETE   ============== "
-    echo "  "
-
+    echo " "
+    echo "=============   COMPLETE   ============= "
+    echo " "
+    echo " "
 
 
     exit 1
+
 }
 
 

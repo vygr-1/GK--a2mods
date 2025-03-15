@@ -65,10 +65,16 @@ function main() {
     docs)
       make-docs
       ;;
+
+
+
     flash)
-      echo "Not implemented yet."
-      #./bin/flash.sh "$@"
+      echo "  Flash firmare FILE to a hardware device"
+      exec  pwsh.exe ./FLASH-A2-.ps1
       ;;
+
+
+
     models)
       ./bin/models.py > MODELS
       cat MODELS
@@ -82,6 +88,21 @@ function main() {
     todo)
       grep -E 'TODO:|FIXME:' -- **/*.[ch] **/*.md
       ;;
+
+
+
+    COMPILE-ALL)
+      exec ./bin/build-all.sh
+      ;;
+
+
+
+    all)
+      exec ./bin/build-all.sh
+      ;;
+
+
+
     *)
       exec ./bin/build-all.sh "$@"
       ;;
