@@ -9,6 +9,12 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 
 
+#  BASIC VARIABLES AND FUNCTIONS
+
+$ErrorActionPreference  = 'SilentlyContinue'
+
+
+
 $date        = Get-Date -format "yyyy-MM-dd"
 $dTime       = Get-Date -format "yyyy-MM-dd HH:mm:ss"
 $dTimeF      = Get-Date -format "yyMMdd_HHmmss"
@@ -19,29 +25,31 @@ $detikL      = 1
 $detikXL     = 2
 $detikEXIT   = 1
 
+sleep -s $detikS
 
 
-Function RKTC    #  ReadKeyToContinue
+
+Function RKTC1    #  ReadKeyToContinue
 {
-    Write-Host "`n  Press any key to continue..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nPress any key to continue..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
-    Write-Host "  "
+    Write-Host " "
 }
 
 
 
 Function RKTC2    #  ReadKeyToContinue
 {
-    Write-Host "`n  " -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`n" -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
-    Write-Host "  "
+    Write-Host " "
 }
 
 
 
 Function theEXIT    #  EXIT
 {
-    Write-Host "`n  Done! Press any key to EXIT..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nDone! Press any key to EXIT..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
 
     Write-Host " EXIT in $detikEXIT second..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
@@ -61,7 +69,7 @@ CD $PSScriptRoot
 
 $HexDir      = "$PSScriptRoot\hex"
 $testHexDir  = Test-Path -Path $HexDir
-$hexfile     = gci -Path $HexDir -File *.hex -errorAction SilentlyContinue
+$hexfile     = gci -Path $HexDir -File *.hex
 $counthex    = ($hexfile).Count
 
 
@@ -70,18 +78,17 @@ $counthex    = ($hexfile).Count
 
 
 
-Write-Host "`n  FLASH ANDURIL2 USING AVRDUDE `n "
+Write-Host "`nFLASH ANDURIL2 USING AVRDUDE `n "
 
-$DateHMS = get-date -format "yyyy-MM-dd HH.mm.ss" 
-Write-Host "  `$DateHMS         : $DateHMS"
 
-Write-Host "  `$PSScriptRoot    :" -NoNewline
-Write-Host " $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+$DateHMS1 = get-date -format "yyyy-MM-dd HH.mm.ss" 
+Write-Host "`$DateHMS1        : $DateHMS1"
 
-Write-Host "  `$PSCommandPath   : $PSCommandPath  "
+Write-Host "`$PSScriptRoot    : $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
-Write-Host "  `$HexDir          :" -NoNewline
-Write-Host " $HexDir" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+Write-Host "`$PSCommandPath   : $PSCommandPath "
+
+Write-Host "`$HexDir          : $HexDir" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
 
 
@@ -93,13 +100,10 @@ Write-Host " $HexDir" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
 if ($testHexDir -eq $false)    #  there is no hex dir. NO FLASHING!
 {
-
-    Write-Host "`n  Hex dir          :" $testHexDir -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
-    Write-Host "  There is no 'hex' directory. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nHex dir          :" $testHexDir -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "There is no 'hex' directory. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
     EXIT
-
 }
 
 
@@ -108,47 +112,35 @@ if ($testHexDir -eq $false)    #  there is no hex dir. NO FLASHING!
 
 if ($counthex -eq 0)    #  there is no hex file. NO FLASHING!
 {
-
-    Write-Host "`n  Hex file         :" $counthex -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
-    Write-Host "  There is no hex file. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nHex file         :" $counthex -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "There is no hex file. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
     EXIT
-
 }
 
 
 
-
-
-Write-host "`n  There are" -NoNewline
+Write-host "`nThere are" -NoNewline
 Write-host " $counthex" -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 Write-Host " hex files"
 
+Write-Host "`nChoose a hex file on the next screen"
 
-
-Write-Host "`n  Choose a hex file on the next screen"
-
-RKTC2
-
-Write-host "  " -NoNewline
+RKTC1
 
 $thehexfile   = ($hexfile | out-gridview -outputMode Single)
 
-
-
 if ($null -eq $thehexfile)    #  hex file is NULL. NO FLASHING!
 {
-
     $thehexfile      = 'null'
 
-    Write-Host "Hex file         :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nHex file         :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
-    Write-Host "  Test path        :" -NoNewline
+    Write-Host "Test path        :" -NoNewline
     Write-Host " " -NoNewline
     Test-Path -Path "$thehexfile"
 
-    Write-Host "`n  The hex file is $thehexfile. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nThe hex file is $thehexfile. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
     EXIT
 
@@ -158,26 +150,19 @@ if ($null -eq $thehexfile)    #  hex file is NULL. NO FLASHING!
 
 else
 {
+    Write-Host "`nHex file         :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
-    Write-Host "Hex file         :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
-    Write-Host "  Test path        :" -NoNewline
+    Write-Host "Test path        :" -NoNewline
     Write-Host " " -NoNewline
     Test-Path -Path "$thehexfile"
 
-    Write-Host "`n  The hex file is" $thehexfile.Name -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nThe hex file is" $thehexfile.Name -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
+    RKTC1
+    Write-Host "`nFLASH ANDURIL2 ...`n" -ForegroundColor yellow
 
-    #    
-    RKTC2
-    Write-Host "  FLASH ANDURIL2 ..." -ForegroundColor yellow
-
-
-    Write-Host "`n  "
     .\xAVRDUDE-v8.0\avrdude.exe -p attiny1616 -c serialupdi -P com5 -Uflash:w:$thehexfile
 
-
-    Write-Host "`n  "
     EXIT
 
 }

@@ -1,20 +1,18 @@
 
-
-
 ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
-
-
 
 # pwsh.exe
 
-
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
-
-
 
 ###   ###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
+
+#  BASIC VARIABLES AND FUNCTIONS
+
+$ErrorActionPreference  = 'SilentlyContinue'
+$ProgressPreference  = 'SilentlyContinue'
 
 
 
@@ -30,77 +28,53 @@ $detikEXIT   = 1
 
 
 
-$PROMPTTT    = 0
 
 
-
-
-
-#  2025-03-08 07:07
-#  copied from `get-targets--v1.73.ps1`  
-#  ReadKeyToContinue  
 Function ReadKeyToContinue
 {
-    sleep -s $detikS
-    Write-Host "`n    Press any key to continue..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
+    Write-Host "`nPress any key to continue..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
-
-    sleep -s $detikS
-    Write-Host ""
+    Write-Host " "
 }
 
 
 
 
 
-#  2025-03-08 07:07
-#  copied from `get-targets--v1.73.ps1`  
-#  theEXIT
-Function theEXIT
+Function theEXIT    #  EXIT
 {
-    sleep -s $detikS
-    Write-Host "`n    Done!" -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
-    sleep -s $detikS
-    Write-Host "  Press any key to EXIT..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
+    Write-Host "`nDone! Press any key to EXIT..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
 
-    sleep -s $detikS
-    Write-Host "  EXIT in $detikEXIT second..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
+    Write-Host " EXIT in $detikEXIT second..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     sleep -s $detikEXIT
-    Exit
+
+    Write-Host " " -NoNewline
+    EXIT
 }
 
 
 
 
 
+
 ###   ###   ###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
 
-Write-Host "`n`n    ###   ###   ###   ###   ###   ###   ###   ###   ###   ### `n"
-Write-Host "    REMOVE dfp ... `n "
+Write-Host "`n`n###   ###   ###   ###   ###   ###   ###`n"
+Write-Host "REMOVE dfp ... `n "
 
 
 
-sleep -s $detikS
-$DateHMS = get-date -format "yyyy-MM-dd HH.mm.ss" 
-Write-Host "    `$DateHMS         = $DateHMS"
+$DateHMS1 = get-date -format "yyyy-MM-dd HH.mm.ss" 
+Write-Host "`$DateHMS1        : $DateHMS1"
 
+Write-Host "`$PSScriptRoot    : $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
-sleep -s $detikS
-Write-Host "    `$PSScriptRoot    =" -NoNewline
-Write-Host " $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
-
-sleep -s $detikS
-Write-Host "    `$PSCommandPath   = $PSCommandPath  "
+Write-Host "`$PSCommandPath   : $PSCommandPath "
 
 
 
@@ -124,9 +98,9 @@ if ($checkDFPdir -eq $false)
 {
 
     sleep -s $detikS
-    Write-Host "`n    dfp not found in " -NoNewline
+    Write-Host "`ndfp not found in " -NoNewline
     Write-Host " $PSScriptRoot\arch\" -ForegroundColor Yellow
-    Write-Host "    Cannot find path  $dfp  because it does not exist.  LoL!" -ForegroundColor Blue #Yellow #white #Red #Green #Blue
+    Write-Host "Cannot find path  $dfp  because it does not exist.  LoL!" -ForegroundColor Cyan #Yellow #white #Red #Green #Blue
     sleep -s $detikS
 
 }
@@ -139,7 +113,7 @@ if ($checkDFPdir -eq $true)
 {
 
     sleep -s $detikS
-    Write-Host "`n    dfp found in" -NoNewline
+    Write-Host "`ndfp found in" -NoNewline
     Write-Host " $PSScriptRoot\arch\" -NoNewline -ForegroundColor Yellow
 
 
@@ -150,7 +124,7 @@ if ($checkDFPdir -eq $true)
 
 
     sleep -s $detikS
-    Write-Host "`n`n    Delete dfp directory..."
+    Write-Host "`n`nDelete dfp directory..."
 
 
     # Remove-Item -Path $dfp -Recurse
@@ -162,7 +136,7 @@ if ($checkDFPdir -eq $true)
 
 
     sleep -s $detikS
-    Write-Host "    Recheck dfp ..."
+    Write-Host "Recheck dfp ..."
 
 
 
@@ -172,7 +146,7 @@ if ($checkDFPdir -eq $true)
     {
 
         sleep -s $detikS
-        Write-Host "    dfp has been deleted from" -NoNewline -ForegroundColor Blue #Yellow #white #Red #Green #Blue
+        Write-Host "dfp has been deleted from" -NoNewline -ForegroundColor Cyan #Yellow #white #Red #Green #Cyan
         Write-Host " $PSScriptRoot\arch\" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
         sleep -s $detikS
 

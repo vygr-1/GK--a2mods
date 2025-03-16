@@ -69,7 +69,7 @@ function main() {
 
 
     flash)
-      echo "  Flash firmare FILE to a hardware device"
+      echo "Flash firmare FILE to a hardware device"
       exec  pwsh.exe ./FLASH-A2-.ps1
       ;;
 

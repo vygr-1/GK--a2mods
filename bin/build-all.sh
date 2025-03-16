@@ -55,7 +55,7 @@ function main {
         ##  OG: echo "===== $UI $REV : $NAME ====="
         ###  mod: 
         echo " "
-        echo "===== $UI $REV : $NAME ====="
+        echo "===== a2.$REV: $NAME ====="
         echo " "
 
 
@@ -104,7 +104,7 @@ function main {
     # SUMMARY
     # summary
     echo " "
-    echo "===== $PASS builds succeeded, $FAIL failed ====="
+    echo "====== $PASS builds succeeded, $FAIL failed ======"
 
 
 
