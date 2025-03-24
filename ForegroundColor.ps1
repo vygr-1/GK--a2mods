@@ -1,34 +1,10 @@
  
 ###   ###   ###   ###   ###   ###   ###
 
-# 2025-02-06
-
-# 2025-02-09
-
-# 2025/02/10 
-
-# 2025-02-22
-
-# 2025/02/25 
-
-# 2025-03-09
-
 # 2025-03-16
 
+# 2025-03-22
 
-
-###   ###   ###   ###   ###   ###   ###
-
-# pwsh.exe
-
-
-<#    #  ADMINISTRATOR
-
-
-if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
-
-
-#>
 
 
 ###   ###   ###   ###   ###   ###   ###
@@ -47,10 +23,10 @@ $detikS      = 0.1
 $detikM      = 0.3
 $detikL      = 1
 $detikXL     = 2
-$detikEXIT   = 1
+$detikEXIT   = 0.5
+
 
 sleep -s $detikS
-
 
 
 Function RKTC1    #  ReadKeyToContinue
@@ -89,18 +65,12 @@ Function theEXIT    #  EXIT
 
 
 
-Write-Host "`n###   ###   ###   ###   ###   ###   ### `n"
-Write-Host "FOREGROUNDCOLOR `n" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+Write-Host "`nFOREGROUNDCOLOR `n" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
 sleep -s $detikS
-$DateHMS1 = get-date -format "yyyy-MM-dd HH.mm.ss" 
-Write-Host "`$DateHMS1        : $DateHMS1"
-
-sleep -s $detikS
-Write-Host "`$PSScriptRoot    : $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
-sleep -s $detikS
-Write-Host "`$PSCommandPath   : $PSCommandPath "
+$DateHMS   =   get-date -format "yyyy-MM-dd HH.mm.ss" 
+Write-Host "DateHMS          : $DateHMS"
+Write-Host "`$PSCommandPath   : $PSCommandPath" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
 
 
@@ -115,6 +85,10 @@ Write-Host "`$PSCommandPath   : $PSCommandPath "
 #    -ForegroundColor Yellow #Blue #Green #Cyan #Red #Magenta #Yellow #White
 
 #    -ForegroundColor Yellow #Blue #Green #Cyan #Red #Magenta #Yellow
+
+#    -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+
+
 
 #   Black
 #   DarkBlue
@@ -137,65 +111,61 @@ Write-Host "`$PSCommandPath   : $PSCommandPath "
 
 Write-Host "`n "
 
-Write-Host " COLOR: Blue  " -ForegroundColor Blue   #Blue #Green #Cyan #Red #Yellow #Gray
+Write-Host "    COLOR: Blue  " -ForegroundColor Blue   #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host " COLOR: Green " -ForegroundColor Green  #Blue #Green #Cyan #Red #Yellow #Gray
+Write-Host "    COLOR: Green " -ForegroundColor Green  #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host " COLOR: Cyan  " -ForegroundColor Cyan   #Blue #Green #Cyan #Red #Yellow #Gray
+Write-Host "    COLOR: Cyan  " -ForegroundColor Cyan   #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host " COLOR: Yellow" -ForegroundColor Yellow #Blue #Green #Cyan #Red #Yellow #Gray
+Write-Host "    COLOR: Yellow" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host " COLOR: Gray  " -ForegroundColor Gray   #Blue #Green #Cyan #Red #Yellow #White #Gray
+Write-Host "    COLOR: Gray  " -ForegroundColor Gray   #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host " COLOR: White " -ForegroundColor White  #Blue #Green #Cyan #Red #Magenta #Yellow #White #Gray
+Write-Host "    COLOR: White " -ForegroundColor White  #Blue #Green #Cyan #Yellow #White
 
-Write-Host " COLOR: DarkYellow" -ForegroundColor DarkYellow #Blue #Green #Cyan #Red #Magenta #Yellow #White    #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    COLOR: DarkYellow" -ForegroundColor DarkYellow #Blue #Green #Cyan #Red #Magenta #Yellow #White    #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
 
 
-
-Write-Host "`n "
-
-Write-Host "FOREGROUND COLORS: " 
 
 Write-Host "`n "
 
-Write-Host "Blue "     -ForegroundColor Blue #Blue #Green #Cyan #Red #Magenta #Yellow
+Write-Host "    Blue "     -ForegroundColor Blue    #Blue #Green #Cyan #Red #Magenta #Yellow
 
-Write-Host "Green "    -ForegroundColor Green #Blue #Green #Cyan #Red #Magenta #Yellow
+Write-Host "    Green "    -ForegroundColor Green   #Blue #Green #Cyan #Red #Magenta #Yellow
 
-Write-Host "Cyan "     -ForegroundColor Cyan #Blue #Green #Cyan #Red #Magenta #Yellow
+Write-Host "    Cyan "     -ForegroundColor Cyan    #Blue #Green #Cyan #Red #Magenta #Yellow
 
-Write-Host "Red "      -ForegroundColor Red #Blue #Green #Cyan #Red #Magenta #Yellow
+Write-Host "    Red "      -ForegroundColor Red     #Blue #Green #Cyan #Red #Magenta #Yellow
 
-Write-Host "Magenta "  -ForegroundColor Magenta #Blue #Green #Cyan #Red #Magenta #Yellow
+Write-Host "    Magenta "  -ForegroundColor Magenta #Blue #Green #Cyan #Red #Magenta #Yellow
 
-Write-Host "Yellow "   -ForegroundColor Yellow #Blue #Green #Cyan #Red #Magenta #Yellow
+Write-Host "    Yellow "   -ForegroundColor Yellow  #Blue #Green #Cyan #Red #Magenta #Yellow
 
-Write-Host "White "    -ForegroundColor white #Blue #Green #Cyan #Red #Magenta #Yellow #White
-
-Write-Host "`n "
-
-Write-Host "White "
+Write-Host "    White "    -ForegroundColor white   #Blue #Green #Cyan #Red #Magenta #Yellow #White
 
 Write-Host "`n "
 
-Write-Host "Black        "  -ForegroundColor Black #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    White "
 
-Write-Host "DarkBlue     "  -ForegroundColor DarkBlue #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "`n "
 
-Write-Host "DarkGreen    "  -ForegroundColor DarkGreen #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    Black        "  -ForegroundColor Black       #Black #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host "DarkCyan     "  -ForegroundColor DarkCyan #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    DarkBlue     "  -ForegroundColor DarkBlue    #DarkBlue #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host "DarkRed      "  -ForegroundColor DarkRed #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    DarkGreen    "  -ForegroundColor DarkGreen   #DarkGreen #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host "DarkMagenta  "  -ForegroundColor DarkMagenta #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    DarkCyan     "  -ForegroundColor DarkCyan    #DarkCyan #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host "DarkYellow   "  -ForegroundColor DarkYellow #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    DarkRed      "  -ForegroundColor DarkRed     #DarkRed #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host "Gray         "  -ForegroundColor Gray #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    DarkMagenta  "  -ForegroundColor DarkMagenta #DarkMagenta #Blue #Green #Cyan #Yellow #Gray
 
-Write-Host "DarkGray     "  -ForegroundColor DarkGray #Black #DarkBlue #DarkGreen #DarkCyan #DarkRed #DarkMagenta #DarkYellow #Gray #DarkGray
+Write-Host "    DarkYellow   "  -ForegroundColor DarkYellow  #DarkYellow #Blue #Green #Cyan #Yellow #Gray
+
+Write-Host "    Gray         "  -ForegroundColor Gray        #Blue #Green #Cyan #Yellow #Gray
+
+Write-Host "    DarkGray     "  -ForegroundColor DarkGray    #DarkGray #Blue #Green #Cyan #Yellow #Gray
 
 Write-Host "`n "
 

@@ -25,6 +25,8 @@ $detikL      = 1
 $detikXL     = 2
 $detikEXIT   = 1
 
+
+
 sleep -s $detikS
 
 
@@ -61,16 +63,24 @@ Function theEXIT    #  EXIT
 
 
 
+Function DateHMS      #  DateHMS:  get-date -format "yyyy-MM-dd HH.mm.ss"
+{
+
+    $DateHMS   = get-date -format "yyyy-MM-dd HH.mm.ss" 
+
+    sleep -s $detikS
+
+    Write-Host "`nDateHMS          : $DateHMS "
+
+}
+
+
+
 ###   ###   ###   ###   ###   ###   ###
 
 
 
 CD $PSScriptRoot
-
-$HexDir      = "$PSScriptRoot\hex"
-$testHexDir  = Test-Path -Path $HexDir
-$hexfile     = gci -Path $HexDir -File *.hex
-$counthex    = ($hexfile).Count
 
 
 
@@ -82,29 +92,33 @@ Write-Host "`nFLASH ANDURIL2 USING AVRDUDE `n "
 
 
 $DateHMS1 = get-date -format "yyyy-MM-dd HH.mm.ss" 
-Write-Host "`$DateHMS1        : $DateHMS1"
-
+Write-Host "DateHMS          : $DateHMS1"
 Write-Host "`$PSScriptRoot    : $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
 Write-Host "`$PSCommandPath   : $PSCommandPath "
 
-Write-Host "`$HexDir          : $HexDir" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
 
 
 ###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###
+
+
+
+
+
+$HexDir      = "$PSScriptRoot\hex"
+$testHexDir  = Test-Path -Path $HexDir
+
+
 
 
 
 if ($testHexDir -eq $false)    #  there is no hex dir. NO FLASHING!
 {
-
     Write-Host "`nHex dir          :" $testHexDir -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
     Write-Host "There is no 'hex' directory. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
+    DateHMS
     theEXIT
 
 }
@@ -113,41 +127,76 @@ if ($testHexDir -eq $false)    #  there is no hex dir. NO FLASHING!
 
 
 
-if ($counthex -eq 0)    #  there is no hex file. NO FLASHING!
+
+if ($testHexDir -eq $true)
+{
+    $hexfile     = gci -Path $HexDir -File *.hex
+    $counthex    = ($hexfile).Count
+
+}
+
+
+
+
+
+
+
+if (($testHexDir -eq $true) -and ($counthex -eq 0))    #  there is a hex dir, but no hex file: NO FLASHING!
+{
+    Write-Host "`nHex file count   :" $counthex -ForegroundColor Yellow #Yellow #Green #Blue
+    Write-Host "`nThere is no hex file. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+
+    DateHMS
+
+    theEXIT
+
+}
+
+
+
+
+
+
+
+
+if (($testHexDir -eq $true) -and ($counthex -gt 0))    # hex file is available
 {
 
-    Write-Host "`nHex file         :" $counthex -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-host "`nHex file count   :" $counthex -ForegroundColor Yellow #Yellow #Green #Blue
+    Write-Host "`nSelect a hex file from the next list..." -ForegroundColor Cyan #Yellow #Green #Blue #Cyan
 
-    Write-Host "There is no hex file. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
-    theEXIT
+
+    RKTC1
+
+
+    $thehexfile   = ($hexfile | out-gridview -outputMode Single -Title 'FLASH ANDURIL2')
+
 
 }
 
 
 
-Write-host "`nThere are" -NoNewline
-Write-host " $counthex" -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-Write-Host " hex files"
 
-Write-Host "`nChoose a hex file on the next screen"
 
-RKTC1
 
-$thehexfile   = ($hexfile | out-gridview -outputMode Single)
+
+
+
+
 
 if ($null -eq $thehexfile)    #  hex file is NULL. NO FLASHING!
 {
 
     $thehexfile      = 'null'
 
-    Write-Host "`nHex file         :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nSelected file    :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue #Cyan
 
-    Write-Host "Test path        :" -NoNewline
-    Write-Host " " -NoNewline
-    Test-Path -Path "$thehexfile"
+    Write-Host "Test path        : " (Test-Path -Path "$thehexfile") -ForegroundColor Yellow
 
-    Write-Host "`nThe hex file is $thehexfile. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`ninvalid selection. NO FLASHING!" -ForegroundColor Yellow #Yellow #Green #Blue
+
+    DateHMS
 
     theEXIT
 
@@ -157,18 +206,26 @@ if ($null -eq $thehexfile)    #  hex file is NULL. NO FLASHING!
 
 else
 {
-    Write-Host "`nHex file         :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
-    Write-Host "Test path        :" -NoNewline
-    Write-Host " " -NoNewline
-    Test-Path -Path "$thehexfile"
+    Write-Host "`nSelected file    :" $thehexfile -ForegroundColor Yellow #Yellow #white #Red #Green #Blue #Cyan
 
-    Write-Host "`nThe hex file is" $thehexfile.Name -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "Test path        :" (Test-Path -Path "$thehexfile") -ForegroundColor Yellow
+
+    Write-Host "`nFLASH ANDURIL2..." -ForegroundColor Cyan #Yellow #white #Red #Green #Blue #Cyan
+
+
 
     RKTC1
-    Write-Host "`nFLASH ANDURIL2 ...`n" -ForegroundColor yellow
+
+    Write-Host " "
+
+    CD $PSScriptRoot
 
     .\xAVRDUDE-v8.0\avrdude.exe -p attiny1616 -c serialupdi -P com5 -Uflash:w:$thehexfile
+
+
+
+    DateHMS
 
     theEXIT
 
@@ -176,17 +233,12 @@ else
 
 
 
+DateHMS
+
 theEXIT
 
 
 
-EXIT
-EXIT
-EXIT
-
-
-
-
 
 
 ###   ###   ###   ###   ###   ###   ###
@@ -216,6 +268,25 @@ EXIT
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+EXIT
+EXIT
+EXIT
 
 
 
@@ -226,6 +297,30 @@ EXIT
 
 #>
 
+
+
+
+<#
+
+
+
+#>
+
+
+
+<#
+
+
+
+#>
+
+
+
+<#
+
+
+
+#>
 
 
 

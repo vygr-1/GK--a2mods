@@ -3,7 +3,7 @@
 ###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###
 
-# pwsh.exe
+# pwsh.exe     # "Administrator"
 
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
@@ -15,8 +15,7 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 #  BASIC VARIABLES AND FUNCTIONS
 
-#  
-$ErrorActionPreference  = 'SilentlyContinue'
+#$ErrorActionPreference  = 'SilentlyContinue'
 $ProgressPreference     = 'SilentlyContinue'
 
 
@@ -30,6 +29,8 @@ $detikM      = 0.3
 $detikL      = 1
 $detikXL     = 2
 $detikEXIT   = 1
+
+
 
 sleep -s $detikS
 
@@ -67,25 +68,47 @@ Function theEXIT    #  EXIT
 
 
 
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
+
+
+Function DateHMS      #  DateHMS:  get-date -format "yyyy-MM-dd HH.mm.ss"
+{
+
+    $DateHMS   = get-date -format "yyyy-MM-dd HH.mm.ss" 
+
+    sleep -s $detikS
+
+    Write-Host "`nDateHMS          : $DateHMS "
+
+}
+
+
+
+Function DateHMSe      #  DateHMS:  get-date -format "yyyy-MM-dd HH.mm.ss"
+{
+    $DateHMSe   = get-date -format "yyyy-MM-dd HH.mm.ss" 
+    Write-Host "DateHMS          : $DateHMSe"
+
+}
+
+
+
+
+
+
 ###   ###   ###   ###   ###   ###   ###
 
 
 
 Write-Host "`nFLASH ANDURIL2 USING AVRDUDE `n "
 
+
 $DateHMS1 = get-date -format "yyyy-MM-dd HH.mm.ss" 
-Write-Host "`$DateHMS1        : $DateHMS1"
-
+Write-Host "DateHMS          : $DateHMS1" 
 Write-Host "`$PSScriptRoot    : $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
 Write-Host "`$PSCommandPath   : $PSCommandPath "
 
 
 
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###
 
 
@@ -99,20 +122,16 @@ Write-Host "`$PSCommandPath   : $PSCommandPath "
 #  12/10/2022
 
 
+#  LIST BOX
+
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 $form = New-Object System.Windows.Forms.Form
-
-#  $form.Text = 'Data Entry Form'
-   $form.Text = 'FLASH ANDURIL2'
-
-#  $form.Size = New-Object System.Drawing.Size(300,200)
-   $form.Size = New-Object System.Drawing.Size(900,600)
-
+$form.Text = 'FLASH ANDURIL2'
+$form.Size = New-Object System.Drawing.Size(900,600)
 $form.StartPosition = 'CenterScreen'
-
 
 
 $OKButton = New-Object System.Windows.Forms.Button
@@ -124,7 +143,6 @@ $form.AcceptButton = $OKButton
 $form.Controls.Add($OKButton)
 
 
-
 $CancelButton = New-Object System.Windows.Forms.Button
 $CancelButton.Location = New-Object System.Drawing.Point(475,520)
 $CancelButton.Size = New-Object System.Drawing.Size(75,23)
@@ -134,7 +152,6 @@ $form.CancelButton = $CancelButton
 $form.Controls.Add($CancelButton)
 
 
-
 $label = New-Object System.Windows.Forms.Label
 $label.Location = New-Object System.Drawing.Point(10,20)
 $label.Size = New-Object System.Drawing.Size(280,25)
@@ -142,91 +159,182 @@ $label.Text = 'Please make a selection from the list below:'
 $form.Controls.Add($label)
 
 
-
 $listBox = New-Object System.Windows.Forms.Listbox
+$listBox.Location = New-Object System.Drawing.Point(10,50)
+$listBox.Size = New-Object System.Drawing.Size(860,450)
 
-#  $listBox.Location = New-Object System.Drawing.Point(10,40)
-   $listBox.Location = New-Object System.Drawing.Point(10,50)
-
-#  $listBox.Size = New-Object System.Drawing.Size(260,20)
-   $listBox.Size = New-Object System.Drawing.Size(870,20)
-
-#   Specify one of the following enumerator names: 
-#   None, One, MultiSimple, MultiExtended""
-
-#  $listBox.SelectionMode = 'MultiExtended'
+#  Specify one of the following enumerator names: 
+#  None, One, MultiSimple, MultiExtended""
    $listBox.SelectionMode = 'One'
 
 
-#  $listBox.Height = 70
-   $listBox.Height = 455
+#  $listBox.Height = 455
 $form.Controls.Add($listBox)
 $form.Topmost = $true
 
 
 
 ###   ###   ###   ###   ###   ###   ###   
-###   ###   ###   ###   ###   ###   ###   
-###   ###   ###   ###   ###   ###   ###   
 
 
 
 $HexDir      = "$PSScriptRoot\hex"
 $testHexDir  = Test-Path -Path $HexDir
-$hexfile     = gci -Path $HexDir -File *.hex
-$counthex    = ($hexfile).Count
 
-Write-Host "`n`nHEX FILES: "
 
-Write-Host $hexfile.Name -Separator ", " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
 
-$hexfile | 
-Foreach {
 
-    [void] $listBox.Items.Add($_)
+
+
+if ($testHexDir -eq $false)    #  there is no hex dir. NO FLASHING!
+{
+    Write-Host "`nHex dir          :" $testHexDir -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+    Write-Host "`nThere is no 'hex' directory. NO FLASHING!" -ForegroundColor Yellow #Yellow #Green #Blue
+
+    DateHMS
+
+    theEXIT
 
 }
 
-Write-Host "`nSelect a hex file..." -ForegroundColor Cyan #Yellow #white #Red #Green #Blue #Cyan
-
-RKTC1
 
 
 
-###   ###   ###   ###   ###   ###   ###   
-###   ###   ###   ###   ###   ###   ###   
-###   ###   ###   ###   ###   ###   ###   
+
+if ($testHexDir -eq $true)
+{
+    $hexfile     = gci -Path $HexDir -File *.hex
+    $counthex    = ($hexfile).Count
+
+}
+
+
+
+if (($testHexDir -eq $true) -and ($counthex -eq 0))    #  there is a hex dir, but no hex file: NO FLASHING!
+{
+    Write-Host "`nHex file count   :" $counthex -ForegroundColor Yellow #Yellow #Green #Blue
+    Write-Host "`nThere is no hex file. NO FLASHING!" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+
+    DateHMS
+
+    theEXIT
+
+}
+
+
+
+
+if (($testHexDir -eq $true) -and ($counthex -gt 0))    # hex file is available
+{
+
+    Write-host "`nHex file count   :" $counthex -ForegroundColor Yellow #Yellow #Green #Blue
+    Write-Host "`nSelect a hex file from the next list..." -ForegroundColor Cyan #Yellow #Green #Blue #Cyan
+
+
+
+    RKTC1
+
+    $hexfile | 
+    Foreach-Object {
+
+        [void] $listBox.Items.Add($_)
+
+    }
+
+
+    #    $listBox.SetSelected(0, $true)
+
+
+}
+
 
 
 
 $result = $form.ShowDialog()
 
-if ($result -eq [System.Windows.Forms.DialogResult]::OK)
+
+
+if ($result -eq [System.Windows.Forms.DialogResult]::Cancel)
 {
 
-    $theFile   =  $listBox.SelectedItems
+    Write-Host "`nCanceled. NO FLASHING!"
+
+
+    DateHMS
+
+    theEXIT
 
 }
 
 
 
-Write-Host "`nSelected hex file:" $theFile -ForegroundColor Cyan #Yellow #white #Red #Green #Blue #Cyan
 
-Write-Host "`nFLASH ANDURIL2 ..." -ForegroundColor yellow
 
-RKTC1
+if ($result -eq [System.Windows.Forms.DialogResult]::OK)
+{
 
-Write-Host " "
+    $Selected         =  $listBox.SelectedItems
+    $TestTheSelected  =  Test-Path -Path "$Selected"
 
-CD $PSScriptRoot
-
-.\xAVRDUDE-v8.0\avrdude.exe -p attiny1616 -c serialupdi -P com5 -Uflash:w:$theFile
+}
 
 
 
-sleep -s $detikS
-$DateHMS2= get-date -format "yyyy-MM-dd HH.mm.ss"
-Write-Host "`n`$DateHMS2        : $DateHMS2 " -NoNewline
+
+
+
+if ($TestTheSelected -eq $false)    #  click the OK button without selecting any item
+{
+
+    $Selected      = 'null'
+
+    Write-Host "`nSelected file    :" $Selected -ForegroundColor Yellow #Yellow #Green #Blue
+    Write-Host "Test path        :" $TestTheSelected -ForegroundColor Yellow
+
+    Write-Host "`ninvalid selection. NO FLASHING!" -ForegroundColor Yellow #Yellow #Green #Blue
+
+
+    DateHMS
+
+    theEXIT
+
+}
+
+
+
+
+
+
+if ($TestTheSelected -eq $true)
+{
+
+    Write-Host "`nSelected file    :" $Selected -ForegroundColor Yellow #Yellow #Green #Blue
+    Write-Host "Test path        :" $TestTheSelected -ForegroundColor Yellow
+
+    Write-Host "`nFLASH ANDURIL2..." -ForegroundColor Cyan #Yellow #white #Red #Green #Blue #Cyan
+
+
+
+    RKTC1
+
+    Write-Host " "
+
+    CD $PSScriptRoot
+
+    .\xAVRDUDE-v8.0\avrdude.exe -p attiny1616 -c serialupdi -P com5 -Uflash:w:$Selected
+
+
+
+    DateHMS
+
+    theEXIT
+
+}
+
+
+
+
+DateHMS
 
 theEXIT
 
@@ -234,9 +342,85 @@ theEXIT
 
 
 
+EXIT
+EXIT
+EXIT
+
+
 ###   ###   ###   ###   ###   ###   ###   
 ###   ###   ###   ###   ###   ###   ###   
 ###   ###   ###   ###   ###   ###   ###   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<#
+
+
+
+#>
+
+
+
+<#
+
+
+
+#>
+
+
+
+
+<#
+
+
+
+#>
+
+
+
+<#
+
+
+
+#>
+
+
+
+<#
+
+
+
+#>
+
+
+
+<#
+
+
+
+#>
+
+
+
+<#
+
+
+
+#>
+
+
+
 
 
 

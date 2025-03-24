@@ -1,6 +1,35 @@
 
 ###   ###   ###   ###   ###   ###   ###
 
+
+<#    #  Administrator
+
+
+# pwsh.exe
+
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
+
+
+#>
+
+
+
+###   ###   ###   ###   ###   ###   ###
+
+
+
+#Yellow #Green #Blue #Cyan
+
+# -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
+
+#Blue #Green #Cyan #Yellow
+
+
+
+###   ###   ###   ###   ###   ###   ###
+
+
+
 #  BASIC VARIABLES AND FUNCTIONS
 
 $ErrorActionPreference  = 'SilentlyContinue'
@@ -19,6 +48,7 @@ $detikM      = 0.3
 $detikL      = 1
 $detikXL     = 2
 $detikEXIT   = 0.5
+
 
 
 sleep -s $detikS
@@ -90,20 +120,23 @@ $counthex    = ($hexfile).Count
 
 
 
-Write-Host "Flash Anduril2 using AVRDUDE" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
+Write-Host "Check hex file" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
 Write-Host " "
-Write-Host "PSCommandPath    : $PSCommandPath "
+Write-Host "`$PSCommandPath   : $PSCommandPath "
 
 
 
-###   ###   ###   ###   ###   ###   ###   ###   ###
+###   ###   ###   ###   ###   ###   ###
 
 
 
-if ($testHexDir -eq $false) {    #  there is no hex dir!
+
+
+if ($testHexDir -eq $false) {    #  there is no hex dir! 
 
     Write-Host "Hex directory    :" $testHexDir -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-    Write-Host " "
+
+    Write-Host ""
     Write-Host "There is no 'hex' directory." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
     EXIT
@@ -137,74 +170,20 @@ if (($testHexDir -eq $true) -and ($counthex -eq 0)) {    #  there is a hex dir, 
 
 
 
-
-
 if (($testHexDir -eq $true) -and ($counthex -gt 0)) {    # hex file is available
 
-
-
+    Write-Host "Hex directory    :" $HexDir -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    Write-host "Hex file         :" $counthex "file" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
     Write-Host " "
-    $continue = Read-Host "Select one hex file from the list? (Y/N)"
+    $hexfile.name
 
-    if ($continue -eq "N") {
-
-        Write-Host "No!" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        EXIT
-
-    }
-
-
-
-    $thehexfile   = $hexfile | Out-Gridview -Title "FLASH ANDURIL2 HEX FILE" -OutputMode Single
-
-
-
-    if ($null -eq $thehexfile) {    #  Selection is NULL. Not processed!
-
-        $thehexfile      = 'null'
-
-        Write-Host ""
-        Write-Host "Null. Not processed." -ForegroundColor Yellow #Blue #Green #Cyan
-
-        EXIT
-
-    }
-
-
-
-    else {
-
-        Write-Host ""
-        Write-Host "Selected hex file:" $thehexfile -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-
-        Write-Host "Test path        : " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        Write-Host (Test-Path -Path "$thehexfile") -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-
-        Write-Host ""
-        Write-Host "Flash Anduril2..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        RKTC2
-
-        Write-Host " "
-
-        .\xAVRDUDE-v8.0\avrdude.exe -p attiny1616 -c serialupdi -P com5 -Uflash:w:$thehexfile
-
-        EXIT
-
-    }
+    EXIT
 
 }
 
 
 
-
 EXIT
-EXIT
-EXIT
-
-
-
-
-
 
 ###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###
@@ -259,13 +238,8 @@ EXIT
 
 
 
-<#    Hex directory etc.
+<#
 
-
-    #  Write-Host "Hex directory    :" $HexDir -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-    #  Write-host "Hex file         :" $counthex "file" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-    #  Write-Host " "
-    #  $hexfile.name
 
 
 #>
@@ -277,17 +251,7 @@ EXIT
 
 
 #>
-
-<#
-
-
-
-#>
-
-
 
 
 
 ###   END   
-
-
