@@ -29,7 +29,7 @@ $detikEXIT   = 0.5
 sleep -s $detikS
 
 
-Function RKTC1    #  ReadKeyToContinue
+Function PKTC1    #  ReadKeyToContinue
 {
     Write-Host "`nPress any key to continue..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
@@ -38,7 +38,7 @@ Function RKTC1    #  ReadKeyToContinue
 
 
 
-Function RKTC2    #  ReadKeyToContinue
+Function PKTC2    #  ReadKeyToContinue
 {
     Write-Host "`n" -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")

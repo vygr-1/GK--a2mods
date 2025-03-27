@@ -21,16 +21,13 @@ $detikXL     = 2
 $detikEXIT   = 0.5
 
 
-
 sleep -s $detikS
-
- -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
 
 #>
 
 
 
-Function RKTC1 {      #  ReadKeyToContinue
+Function PKTC1 {      #  ReadKeyToContinue
 
     Write-Host " "
     Write-Host "Press any key to continue..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
@@ -41,7 +38,7 @@ Function RKTC1 {      #  ReadKeyToContinue
 
 
 
-Function RKTC2 {   #  ReadKeyToContinue
+Function PKTC2 {      #  ReadKeyToContinue
 
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
     Write-Host " "
@@ -93,17 +90,21 @@ $counthex    = ($hexfile).Count
 
 
 
-#   Write-Host "Delete hex file" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
-#   Write-Host ""
+Write-Host "Flash Anduril using AVRDUDE" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
+Write-Host " "
 Write-Host "PSCommandPath    : $PSCommandPath "
 
 
 
-if ($testHexDir -eq $false) {    #  there is no hex dir! 
+###   ###   ###   ###   ###   ###   ###   ###   ###
+
+
+
+if ($testHexDir -eq $false) {    #  there is no hex dir!
 
     Write-Host "Hex directory    :" $testHexDir -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
     Write-Host " "
-    Write-Host "There is no 'hex' directory." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    Write-Host "'hex' directory not found." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
     EXIT
 
@@ -111,7 +112,9 @@ if ($testHexDir -eq $false) {    #  there is no hex dir!
 
 
 
-if ($testHexDir -eq $true) {    #  gci hex dir
+
+
+if ($testHexDir -eq $true) {
 
     $hexfile     = gci -Path $HexDir -File *.hex
     $counthex    = ($hexfile).Count
@@ -125,7 +128,7 @@ if (($testHexDir -eq $true) -and ($counthex -eq 0)) {    #  there is a hex dir, 
     Write-Host "Hex directory    :" $HexDir -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
     Write-Host "Hex file count   :" $counthex -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
     Write-Host " "
-    Write-Host "Hex dir is empty. There is no hex file." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    Write-Host "'hex' directory is empty." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
     EXIT
 
@@ -133,31 +136,33 @@ if (($testHexDir -eq $true) -and ($counthex -eq 0)) {    #  there is a hex dir, 
 
 
 
+
+
 if (($testHexDir -eq $true) -and ($counthex -gt 0)) {    # hex file is available
 
-
     Write-Host " "
-    $continue = Read-Host "Select hex file to be deleted? (Y/N)"
+    Write-Host "Select a hex file from the list? " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan
+    $continue = Read-Host "[n]no, [Enter]yes"
 
-    if ($continue -eq "N") {
+
+    if ($continue -eq "n") {
 
         Write-Host "No!" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-
         EXIT
 
     }
 
 
 
-    $thehexfile   = $hexfile | Out-Gridview -Title "DELETE HEX FILE" -OutputMode Multiple
+    $thehexfile   = $hexfile | Out-Gridview -Title "FLASH ANDURIL2 HEX FILE" -OutputMode Single
 
 
 
-    if ($null -eq $thehexfile) {    # Selection is NULL. Not processed!
+    if ($null -eq $thehexfile) {    #  Selection is NULL. Not processed!
 
         $thehexfile      = 'null'
 
-        Write-Host " "
+        Write-Host ""
         Write-Host "Null. Not processed." -ForegroundColor Yellow #Blue #Green #Cyan
 
         EXIT
@@ -169,59 +174,36 @@ if (($testHexDir -eq $true) -and ($counthex -gt 0)) {    # hex file is available
     else {
 
         Write-Host ""
-        Write-Host "Selected hex file:" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        $thehexfile.name
+        Write-Host "Selected file    :" $thehexfile -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
-
-        Write-Host ""
-        Write-Host "Delete the selectd hex file? (Y/N)" -NoNewline -ForegroundColor Yellow #Blue #Cyan
-        $DelHexfile = Read-Host " "
-
-
-        if ($DelHexfile -ne "Y") {    # "No!" EXIT!
-
-            Write-Host "No!" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-
-            EXIT
-
-        }
-
-
-
-        if ($DelHexfile -eq "Y") {    # "Yes!" Delete!
-
-            Write-Host "Yes!" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-
-            Remove-Item $thehexfile
-
-            sleep -s $detikM
-            EXIT
-
-        }
+        Write-Host "Test path        : " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+        Write-Host (Test-Path -Path "$thehexfile") -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
         Write-Host ""
-        Write-Host "ERROR.CATCH" -NoNewline -ForegroundColor Cyan #Blue #Cyan #Yellow
-        RKTC2
+        Write-Host "Flash Anduril2... " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+        PKTC2
+
+        Write-Host " "
+
+        .\xAVRDUDE-v8.0\avrdude.exe -p attiny1616 -c serialupdi -P com5 -Uflash:w:$thehexfile
 
         EXIT
 
     }
-
-
 
 }
 
 
 
 
+EXIT
+EXIT
+EXIT
 
-Write-Host ""
-Write-Host "ERROR.CATCH" -NoNewline -ForegroundColor Cyan #Blue #Cyan #Yellow
-RKTC2
 
-EXIT
-EXIT
-EXIT
+
+
+
 
 ###   ###   ###   ###   ###   ###   ###
 ###   ###   ###   ###   ###   ###   ###
@@ -260,20 +242,9 @@ EXIT
 
 
 
-<#
 
 
 
-#>
-
-
-
-
-<#
-
-
-
-#>
 
 
 
@@ -287,6 +258,25 @@ EXIT
 
 
 
+<#    Hex directory etc.
+
+
+    #  Write-Host "Hex directory    :" $HexDir -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    #  Write-host "Hex file         :" $counthex "file" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    #  Write-Host " "
+    #  $hexfile.name
+
+
+#>
+
+
+
+<#
+
+
+
+#>
+
 <#
 
 
@@ -294,20 +284,9 @@ EXIT
 #>
 
 
-
-<#
-
-
-    #   Write-Host "Hex directory    :" $HexDir -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-    #   Write-host "Hex file count   :" $counthex -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-
-    #   Write-Host " "
-    #   Write-Host "Select hex file to be deleted..." -NoNewline -ForegroundColor Cyan #Blue #Cyan #Yellow
-    #   RKTC2
-
-
-#>
 
 
 
 ###   END   
+
+

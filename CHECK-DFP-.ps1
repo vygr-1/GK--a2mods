@@ -20,8 +20,6 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 
 
 
-
-
 ###   ###   ###   ###   ###   ###   ###
 
 #  BASIC VARIABLES AND FUNCTIONS
@@ -54,7 +52,7 @@ sleep -s $detikS
 
 
 
-Function RKTC1 {      #  ReadKeyToContinue
+Function PKTC1 {      #  ReadKeyToContinue
 
     Write-Host " "
     Write-Host "Press any key to continue..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
@@ -65,7 +63,7 @@ Function RKTC1 {      #  ReadKeyToContinue
 
 
 
-Function RKTC2 {      #  ReadKeyToContinue
+Function PKTC2 {      #  ReadKeyToContinue
 
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
     Write-Host " "
@@ -105,7 +103,6 @@ Function DateHMS {    #  DateHMS:  get-date -format "yyyy-MM-dd HH.mm.ss"
 
 #   CD $PSScriptRoot
 
-
 #   Root of the Drive:
 $RootDrive        = Split-Path -Path $PSScriptRoot -Qualifier
 
@@ -127,7 +124,7 @@ $attinyDirSizeMB  = "{0:N2}" -f ((gci $attiny -rec | measure Length -sum).sum / 
 
 
 
-Write-Host "Check dfp" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
+Write-Host "Check dfp-attiny" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
 Write-Host " "
 Write-Host "PSCommandPath    : $PSCommandPath "
 
@@ -140,7 +137,7 @@ if (($testATTINY -eq $true) -and ($attinyDirSize -gt 109012000)) {
     $lsdfp = ls -path $dfp
     Write-Host $lsdfp.Name -Separator ", " -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
-    Write-Host "dfp dir size     :" $attinyDirSizeMB "MB" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    Write-Host "attiny dir size  :" $attinyDirSizeMB "MB" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
     $global:dfpStatus = $true
 
@@ -167,7 +164,7 @@ else {   # No valid dfp in this repo
 
 
 #  Check dfp, starts from the Root of the Drive
-Write-Host ""
+Write-Host " "
 Write-Host "Finding attiny... "
 
 
@@ -183,14 +180,11 @@ Foreach ($ATTINYsourceDir in $FindingAttiny) {
     $ATTINYsourceDirSizeMB  = "{0:N2}" -f ((gci $ATTINYsourceDir -rec | measure Length -sum).sum / 1MB)
 
 
-
-#   if ($ATTINYsourceDirSize -gt 100000000)
-
-    if ($ATTINYsourceDirSize -gt 109012000) {
+    if ($ATTINYsourceDirSize -gt 109012000) {    # valid ATTINY Dir Size ~109012000)
 
         Write-Host ""
         Write-Host "ATTINY source    : $ATTINYsourceDir"
-        Write-Host "ATTINY size      : $ATTINYsourceDirSize  ($ATTINYsourceDirSizeMB MB)" -ForegroundColor Yellow
+        Write-Host "ATTINY size      : $ATTINYsourceDirSize ($ATTINYsourceDirSizeMB MB)" -ForegroundColor Yellow
 
         BREAK
 
@@ -200,8 +194,7 @@ Foreach ($ATTINYsourceDir in $FindingAttiny) {
 
 
 
-#  Write-host "Valid dfp-attiny : $ATTINYsourceDir" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-
+#  Write-host "valid dfp-attiny : $ATTINYsourceDir" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 gci $ATTINYsourceDir
 
 
@@ -209,28 +202,22 @@ gci $ATTINYsourceDir
 Write-Host ""
 Write-Host ""
 Write-Host "###   ###   ###   ###   ###   ###   ###"
-
-
 Write-Host ""
 Write-Host "Copy $ATTINYsourceDir " -ForegroundColor Yellow #Blue #Green #Cyan
 Write-Host "into $attiny ? " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan
 
+# $confirmation = Read-Host "[y]yes, [Enter]no (the default is 'no') "
+  $confirmation = Read-Host "[y]yes, [Enter]no"
 
-$confirmation = Read-Host "(Y/N)"
 
 
-if ($confirmation -ne "Y")
-{
+if ($confirmation -ne "y") {
     Write-Host "No." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
     $global:dfpStatus = $false
 
     Write-Host ""
     Write-Host "dfpStatus         :" $dfpStatus
-
-
-    #    RKTC1
-
 
     EXIT
 
@@ -240,18 +227,18 @@ if ($confirmation -ne "Y")
 
 
 
-elseif ($confirmation -eq 'Y') {
+elseif ($confirmation -eq 'y') {
 
     Write-Host "Yes" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
 
     #  delete the invalid $dfp first (if any)
-    if ($testDFP -eq $true)
-    {
+    if ($testATTINY -eq $true) {
 
         Write-Host ""
         Write-Host "Delete the invalid dfp first ..." -ForegroundColor Yellow #Blue #Green #Cyan
 
-        Remove-Item -Path $dfp -Recurse
+#       Remove-Item -Path $dfp -Recurse
+        Remove-Item -Path $attiny -Recurse
 
         Write-Host "invalid dfp is deleted." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
@@ -264,7 +251,7 @@ elseif ($confirmation -eq 'Y') {
 
 
 
-    if ($testATTINY -eq $false) {    # then: Copy-Item -Path $ATTINYsourceDir -Destination $attiny -Recurse
+    if ($testATTINY -eq $false) {    # then Copy ... $ATTINYsourceDir -Destination $attiny ...
 
         Write-Host ""
         Write-Host "Copying the valid dfp... " -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
@@ -280,11 +267,9 @@ elseif ($confirmation -eq 'Y') {
 
 
 
-#   if (($testATTINY -eq $true) -and ($attinyDirSize -gt 100000000))
-
     if (($testATTINY -eq $true) -and ($attinyDirSize -gt 109012000)) {
 
-        Write-Host "Valid dfp-attiny : " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+        Write-Host "valid dfp        : " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
         $gcidfp = gci -path $dfp
         Write-Host $gcidfp.Name -Separator ", "

@@ -57,7 +57,7 @@ sleep -s $detikS
 
 
 
-Function RKTC1 {      #  ReadKeyToContinue
+Function PKTC1 {      #  ReadKeyToContinue
 
     Write-Host " "
     Write-Host "Press any key to continue..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
@@ -68,7 +68,7 @@ Function RKTC1 {      #  ReadKeyToContinue
 
 
 
-Function RKTC2 {      #  ReadKeyToContinue
+Function PKTC2 {      #  ReadKeyToContinue
 
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
     Write-Host " "

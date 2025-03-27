@@ -1,24 +1,17 @@
 
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
-
-
-
-# pwsh.exe
+######  pwsh.exe "Administrator"  ######
+######  pwsh.exe "Administrator"  ######
+######  pwsh.exe "Administrator"  ######
 
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
 
 
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
-
-
-
-#    BASIC VARIABLES
-#    
+##########     VARIABLES     ##########
+##########     VARIABLES     ##########
+##########     VARIABLES     ##########
+ 
+#  
 $ErrorActionPreference  = 'SilentlyContinue'
 $ProgressPreference     = 'SilentlyContinue'
 
@@ -34,10 +27,6 @@ $detikEXIT   = 0.1
 
 
 
-###   ###   ###   ###   ###   ###   ###
-
-
-
 <#
 
 
@@ -46,75 +35,19 @@ $detikEXIT   = 0.1
 
 
 
-<#    Stuff
-
-
-Write-Host " "
-
-BasicStuff
-
-TestWSL
-
-CLS
-
-
-
-#       Write-Host "`nANDURIL MAKE" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
-
-
-#       Write-Host ""    #   the TASK window
-#       $continueOrExit = Read-Host "Open the task window and select a task from the list? (Y/N)"
-
-
-
-#           "check dfp"       {pwsh "$PSScriptRoot\check-dfp-.ps1"}
-
-
-
-Write-Host ""
-
-Write-Host ""
-
-
-Write-Host " "
-
-
-    Write-Host " "
-
-
-        Write-Host " "
-
-
-
-#>
-
-
-<#    continueOrExit
-
-    Write-Host ""    #   the TASK window
-    $continueOrExit = Read-Host "Open the task window and select a task from the list? (Y/N)"
-
-
-    if ($continueOrExit -eq "N") {
-
-        Write-Host "No!" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        TheEXIT
-    }
-
-#>
-
-
 <#
 
-
-
 #>
 
 
 
 
 
-Function BasicStuff {
+##########     FUNCTIONS     ##########
+##########     FUNCTIONS     ##########
+##########     FUNCTIONS     ##########
+
+Function BasicStuff {    # unused???
 
     $DateHMS   = get-date -format "yyyy-MM-dd HH.mm.ss" 
     Write-Host "DateHMS          : $DateHMS"
@@ -125,7 +58,7 @@ Function BasicStuff {
 
 
 
-Function RKTC1 {      #  ReadKeyToContinue
+Function PKTC1 {      #  ReadKeyToContinue
 
     Write-Host " "
     Write-Host "Press any key to continue..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
@@ -136,7 +69,7 @@ Function RKTC1 {      #  ReadKeyToContinue
 
 
 
-Function RKTC2 {      #  ReadKeyToContinue
+Function PKTC2 {      #  ReadKeyToContinue
 
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
     Write-Host " "
@@ -144,13 +77,40 @@ Function RKTC2 {      #  ReadKeyToContinue
 
 
 
+Function PKTE1 {      #  Press any key to EXIT
+
+    Write-Host "Press any key to EXIT" -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+
+    $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
+
+    EXIT
+
+}
+
+
+
+Function PKTE2 {      #  Press any key to EXIT
+
+    Write-Host "Press any key to EXIT " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+
+    $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
+
+    sleep -s $detikS
+
+    EXIT
+
+}
+
+
+
 Function TheEXIT {    #  EXIT
 
     Write-Host " "
-    Write-Host "Done! Press any key to EXIT... " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan
+#   Write-Host "Done! Press any key to EXIT... " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan
+    Write-Host "Press any key to EXIT... " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
 
-    Write-Host "EXIT in $detikEXIT second..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan
+#   Write-Host "EXIT in $detikEXIT second..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan
     sleep -s $detikEXIT
 
     Write-Host " " -NoNewline
@@ -171,13 +131,14 @@ Function DateHMS {    #  DateHMS:  get-date -format "yyyy-MM-dd HH.mm.ss"
 
 
 
-###   ###   ###   ###   ###   ###   ###
 
 
 
-$TestWslDir = Test-Path -Path "C:\Program Files\WSL"
+Function TestWSL {    #####  Test WSL directory  #####
 
-Function TestWSL {
+#   $TestWslDir = Test-Path -Path "C:\Program Files\WSL"
+
+    $global:TestWslDir = Test-Path -Path "C:\Program Files\WSL"
 
     Write-Host " "
     Write-Host "WSL" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
@@ -205,28 +166,25 @@ Function TestWSL {
 
 
 
-Function RestartMake {
+
+
+Function RestartMake {    #####  ANDURIL MAKE window  #####
 
     Write-Host " "
-    Write-Host "Restart ANDURIL MAKE" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
-    Write-Host "Open the task window and select a task from the list " -NoNewline
+    Write-Host "ANDURIL MAKE" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
+    Write-Host " "
+    Write-Host "Open the task window? " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    $Restart = Read-Host "[n]no, [Enter]yes"
 
-    $Restart = Read-Host "(Y/N)"
 
 
-    if ($Restart -eq "N") {
+    if ($Restart -eq "n") {
 
         Write-Host "No!" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
-        TheEXIT
-
-
-        sleep -s $detikS
-        EXIT
+        PKTE1
 
     }
-
-
 
 
 
@@ -241,12 +199,13 @@ Function RestartMake {
 
 
 
-###   ###   ###   ###   ###   ###   ###
 
 
+##########     HASHTABLES     ##########
+##########     HASHTABLES     ##########
+##########     HASHTABLES     ##########
 
-#  Hashtable Of Tasks
-$HashOfMake   = [ordered]@{
+$HashOfMake   = [ordered]@{    ### Hashtable Of Tasks
 
     'clean'        = 'Delete generated files'
     'dfp'          = 'Download and install Atmel DFPs'
@@ -260,12 +219,10 @@ $HashOfMake   = [ordered]@{
 
 
 
-#  Hashtable Of Flashlights
-$HashOfUnit   = [ordered]@{}
+$HashOfUnit   = [ordered]@{}    ### Hashtable Of Flashlights
 $Unit         = gci -Path "$PSScriptRoot\hw" -directory -recurse
 
 $HashOfUnit.Add('ANDURIL', 'Compile all build target')
-
 $HashOfUnit.Add(' ',       'Compile all build target')
 
 $Unit.Name | 
@@ -277,21 +234,24 @@ Foreach-Object {
 
 
 
-#  Hashtable Of Extra Tasks
-$HashOfExtra   = [ordered]@{
+$HashOfExtra   = [ordered]@{    ### Hashtable Of Extra Tasks
 
-'check hex'    = 'Check if any firmare file is available'
-'flash hex'    = 'Flash firmare file to a hardware device'
-'delete hex'   = 'Delete generated hex files'
-'check dfp'    = 'Check mini-dfp (dfp-attiny)'
-'help'         = 'Show the help text'
+    'check hex'    = 'Check if any firmare file is available'
+    'flash hex'    = 'Flash firmare file to a hardware device'
+    'delete hex'   = 'Delete generated hex files'
+    'help'         = 'Show the help text'
+
+    'check attiny' = 'Check dfp-attiny (local file)'
+
+    'dfp-all'      = 'Download and install Atmel DFPs (all)'
+    'dfp-attiny'   = 'Download and install Atmel DFP  (attiny only)'
+    'dfp-avrdd'    = 'Download and install Atmel DFP  (avrdd only)'
 
 }
 
 
 
-#  Hashtable Of SectionA
-$HashOfSectionA = [ordered]@{
+$HashOfSectionA = [ordered]@{    ### Hashtable Of SectionA
 
     '############'     = '###################################'
 
@@ -299,8 +259,7 @@ $HashOfSectionA = [ordered]@{
 
 
 
-#  Hashtable Of SectionB
-$HashOfSectionB = [ordered]@{
+$HashOfSectionB = [ordered]@{    ### Hashtable Of SectionB
 
     '#############'     = '###################################'
 
@@ -312,13 +271,11 @@ $ALLTASK    = $HashOfExtra + $HashOfSectionA + $HashOfMake + $HashOfSectionB + $
 
 
 
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###
 
 
-
-#  ANDURIL MAKE
+##########  ANDURIL MAKE  ##########
+##########  ANDURIL MAKE  ##########
+##########  ANDURIL MAKE  ##########
 
 
 Write-Host " "
@@ -326,41 +283,43 @@ $DateHMS   = get-date -format "yyyy-MM-dd HH.mm.ss"
 Write-Host "DateHMS          : $DateHMS"
 Write-Host "PSCommandPath    : $PSCommandPath "
 
-Write-Host ""
-Write-Host "###   ###   ###   ###   ###   ###   ###"
+
+TestWSL
+Write-Host " "
 
 
 
 Function BuildHelper {
 
-Write-Host ""
+Write-Host " "
 Write-Host "ANDURIL MAKE" -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
 Write-Host "Build helper tool for Anduril flashlight firmware" -ForegroundColor Yellow
 
-Write-Host ""
+Write-Host " "
 Write-Host "Usage:" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 Write-Host "    ./make [Task]" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
-Write-Host ""
+Write-Host " "
 Write-Host "Usage on a Windows machine with WSL:" -ForegroundColor Yellow
 Write-Host "    wsl.exe ./make [Task]" -ForegroundColor Yellow
-Write-Host ""
+Write-Host " "
 Write-Host "    wsl.exe ./make [Build Target]" -ForegroundColor Yellow
-Write-Host ""
+Write-Host " "
 Write-Host "    wsl.exe ./bin/build-all.sh [Build Target]" -ForegroundColor Yellow
 
-Write-Host ""
+Write-Host " "
 Write-Host "Extra tasks are done with the help of some ps1 files:" -ForegroundColor Yellow
 Write-Host "    pwsh.exe [.\ExtraTask.ps1]" -ForegroundColor Yellow
 
-Write-Host ""
+Write-Host " "
 Write-Host "    e.g.:" -ForegroundColor Yellow
 Write-Host "        pwsh.exe .\check-dfp-.ps1" -ForegroundColor Yellow
-Write-Host ""
+Write-Host " "
 Write-Host "        pwsh.exe .\check-hex-.ps1" -ForegroundColor Yellow
 
-Write-Host ""
+Write-Host " "
 Write-Host "Tasks and build targets are listed on the task window." -ForegroundColor Yellow #Blue #Cyan
+Write-Host "Please make a selection from the list." -ForegroundColor Yellow #Blue #Cyan
 
 
 }
@@ -372,12 +331,18 @@ BuildHelper
 
 
 Write-Host " "
-$continue = Read-Host "Open the task window and select a task from the list? (Y/N)"
+Write-Host " "
+Write-Host "Open the task window? " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+$continue = Read-Host "[n]no, [Enter]yes"
 
-if ($continue -eq "N") {
 
-    Write-Host "No!" -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-    TheEXIT
+
+if ($continue -eq "n") {
+
+    Write-Host "No!"
+
+    PKTE2
+
 }
 
 
@@ -388,17 +353,15 @@ CLS
 
 while ($TestWslDir -eq $true) {
 
-    Write-Host " "
-
-    $theTASK     = ($ALLTASK | Out-Gridview -Title "ANDURIL MAKE.TASKS.BUILD TARGETS" -PassThru)
+    $theTASK     = ($ALLTASK | Out-Gridview -Title "ANDURIL MAKE. TASKS. BUILD TARGETS" -PassThru)
 
 
 
     if ($null -eq $theTASK) {    #  The Task is NULL!
 
-        Write-Host "The task is null. Not processed." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        Write-Host ""
-        Write-Host ""
+        Write-Host " "
+        Write-Host "Null. Not processed." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+        Write-Host " "
 
     }
 
@@ -406,9 +369,9 @@ while ($TestWslDir -eq $true) {
 
     if (($HashOfSectionA.Contains($theTASK.Name)) -or ($HashOfSectionB.Contains($theTASK.Name))) {  # NULL!
 
-        Write-Host "The task is null. Not processed." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        Write-Host ""
-        Write-Host ""
+        Write-Host " "
+        Write-Host "Null. Not processed." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+        Write-Host " "
 
     }
 
@@ -418,21 +381,36 @@ while ($TestWslDir -eq $true) {
 
     if ($HashOfExtra.Contains($theTASK.Name)) {    # The Extra Task
 
+        Write-Host " "
         Write-Host "Selected Task    :" $theTASK.Name -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        Write-Host ""
+        Write-Host " "
 
         switch ($theTASK.Name) {
 
-            "check dfp"       {. "$PSScriptRoot\check-dfp-.ps1"}
-
             "check hex"       {. "$PSScriptRoot\check-hex-.ps1"}
 
-            "flash hex"       {. "$PSScriptRoot\flash-a2-.ps1"}
+            "flash hex"       {. "$PSScriptRoot\flash-hex-.ps1"}
 
             "delete hex"      {. "$PSScriptRoot\delete-hex-.ps1"}
-#           "delete hex"      {. "$PSScriptRoot\delete-hex-525-.ps1"}
 
             "help"            {BuildHelper}
+
+#           "check attiny"    {. "$PSScriptRoot\check-dfp-.ps1"}
+            "check attiny"    {. "$PSScriptRoot\check-dfp-attiny-.ps1"}
+
+
+
+            "dfp-all"         {CD $PSScriptRoot ; wsl.exe ./bin/dfp-install.sh}
+
+            "dfp-attiny"      {CD $PSScriptRoot ; wsl.exe ./bin/dfp-install-attiny.sh}
+
+            "dfp-avrdd"       {CD $PSScriptRoot ; wsl.exe ./bin/dfp-install-avrdd.sh}
+
+
+
+        #   'dfp'          = 'Download and install Atmel DFPs'       ./bin/dfp-install.sh 
+        #   'dfp-attiny'   = 'Download and install Atmel DFP-attiny' ./bin/dfp-install-attiny.sh 
+        #   'dfp-avrdd'    = 'Download and install Atmel DFP-avrdd'  ./bin/dfp-install-avrdd.sh
 
         }
 
@@ -442,37 +420,28 @@ while ($TestWslDir -eq $true) {
 
 
 
-
-
-
     if ($HashOfMake.Contains($theTASK.Name))   {    # The Task Name of $HashOfMake
 
-        Write-Host "Selected Task    :" $theTASK.Name -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
-        Write-Host ""
-
-        sleep -s $detikS
-
-        CD $PSScriptRoot
-
         Write-Host " "
-
+        Write-Host "Selected Task    :" $theTASK.Name -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+        Write-Host " "
+        CD $PSScriptRoot
+        Write-Host " "
         wsl.exe ./make $theTASK.Name
-
-        Write-Host "`n "
+        Write-Host " "
 
     }
 
 
 
-
-
     if ($HashOfUnit.Contains($theTASK.Name))   {    # The Task Name of $HashOfUnit
 
+        Write-Host " "
         Write-Host "Selected Task    : Compile" $theTASK.Name -ForegroundColor Yellow #Blue #Green #Cyan
         Write-Host " "
-        Write-Host "Check the dfp first..."
+        Write-Host "Check the dfp-attiny first..."
         Write-Host " "
-        . "$PSScriptRoot\check-dfp-.ps1"
+        . "$PSScriptRoot\check-dfp-attiny-.ps1"
 
 
 
@@ -481,14 +450,10 @@ while ($TestWslDir -eq $true) {
 
             Write-Host " "
             Write-Host "Compile" $theTASK.Name "..." -ForegroundColor Cyan #Blue #Green #Cyan #Yellow
-
             Write-Host " "
-            sleep -s $detikS
             CD $PSScriptRoot
             Write-Host " "
-
             wsl.exe ./bin/build-all.sh $theTASK.Name
-
             Write-Host " "
 
         }
@@ -505,8 +470,8 @@ while ($TestWslDir -eq $true) {
 
 
 
-Write-Host ""
-Write-Host ""
+Write-Host " "
+Write-Host " "
 Write-Host "ERROR"
 Write-Host "You should've never read this line"
 Write-Host "There must've been a serious ERROR"
@@ -612,11 +577,11 @@ TheEXIT
 #   the TASK window
 #   $continueOrExit = Read-Host "`nOpen the task window and select a task from the list? (Y/N)"
 #       $SelectTask     = Read-Host "Open the task window and select a task from the list? (Y/N)"
-#   RKTC1
-#   Write-Host ""
-#   RKTC1
-#   Write-Host ""
-#   Write-Host ""
+#   PKTC1
+#   Write-Host " "
+#   PKTC1
+#   Write-Host " "
+#   Write-Host " "
 
 #  Write-Host "       TASK is one of the tasks or build targets listed below" -ForegroundColor Yellow #Blue #Green #Cyan
 #  Write-Host "... where TASK is one of the tasks or build targets listed below" -ForegroundColor Yellow #Blue #Green #Cyan

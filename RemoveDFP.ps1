@@ -5,13 +5,12 @@
 
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { Start-Process pwsh.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit }
 
-###   ###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
-
-#  BASIC VARIABLES AND FUNCTIONS
-
-$ErrorActionPreference  = 'SilentlyContinue'
+##########     VARIABLES     ##########
+##########     VARIABLES     ##########
+##########     VARIABLES     ##########
+#  $ErrorActionPreference  = 'SilentlyContinue'
 $ProgressPreference  = 'SilentlyContinue'
 
 
@@ -30,27 +29,173 @@ $detikEXIT   = 1
 
 
 
-Function ReadKeyToContinue
-{
-    Write-Host "`nPress any key to continue..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+##########   FUNCTIONS   ##########
+##########   FUNCTIONS   ##########
+##########   FUNCTIONS   ##########
+
+
+Function PKTC1 {      # ReadKeyToContinue   # with  "Press any key to continue..."
+
+    Write-Host " "
+    Write-Host "Press any key to continue..." -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
     Write-Host " "
+
 }
 
 
 
+Function PKTE2 {      #  Press any key, timer, then EXIT
 
+    Write-Host "Press any key to EXIT " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
 
-Function theEXIT    #  EXIT
-{
-    Write-Host "`nDone! Press any key to EXIT..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
     $null = $host.UI.RawUI.ReadKey("NoEcho, includeKeyDown")
 
-    Write-Host " EXIT in $detikEXIT second..." -NoNewline -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-    sleep -s $detikEXIT
+    sleep -s $detikS
 
-    Write-Host " " -NoNewline
     EXIT
+
+}
+
+
+
+
+
+##########     VARIABLES     ##########
+##########     VARIABLES     ##########
+##########     VARIABLES     ##########
+
+
+$dfp                  = "$PSScriptRoot\arch\dfp"
+
+    $attiny           = "$PSScriptRoot\arch\dfp\attiny"
+#   $avrdd            = "$PSScriptRoot\arch\dfp\avrdd"
+    $zip              = "$PSScriptRoot\arch\dfp\zip"
+
+
+
+    $testDFP          = (Test-Path $dfp)
+    $testATTINY       = (Test-Path $attiny)
+#   $testAVRDD        = (Test-Path $avrdd)
+    $testZIP          = (Test-Path $zip)
+
+
+
+
+
+
+##########   FUNCTIONS   ##########
+##########   FUNCTIONS   ##########
+##########   FUNCTIONS   ##########
+
+
+
+$arrayOfDir  = @($dfp, $attiny, $zip)
+
+Write-Host " "
+Write-Host "`$arrayOfDir: "
+$arrayOfDir
+
+
+
+$arrayOfTestPath  = @($testDFP, $testATTINY, $testZIP)
+
+Write-Host " "
+Write-Host "`$arrayOfTestPath: "
+$arrayOfTestPath
+
+
+
+
+
+
+Foreach ($Dir in $arrayOfDir) {
+
+
+$Dir
+
+
+PKTC1
+
+
+
+    if ((Test-Path -Path $Dir) -eq $false) {
+
+        Write-Host " "
+
+        Write-Host "WHAT??? FALSE???"
+
+        Write-Host " "
+
+        Write-Host "$Dir not found in " -ForegroundColor Yellow #Yellow  #Blue
+        Write-Host "Cannot find path  $Dir  because it does not exist.  LoL!" -ForegroundColor Cyan
+
+
+    PKTC1
+
+
+
+    }
+
+
+
+
+    if ((Test-Path -Path $Dir) -eq $true) {
+
+        Write-Host " "
+
+        Write-Host "WHAT??? TRUE???"
+
+        Write-Host " "
+
+        Write-Host " "
+        Write-Host "$Dir found..." -ForegroundColor Yellow
+
+
+        sleep -s $detikS
+        $gciDir = gci -path $Dir
+        $gciDir
+
+
+        Write-Host " "
+
+        Write-Host " "
+        Write-Host "Delete $Dir directory...?"
+
+    PKTC1
+
+PKTE2
+
+        Remove-Item -Path $dfp -Recurse
+
+        sleep -s $detikM
+
+
+
+
+        Write-Host "Recheck dfp ..."
+
+
+
+        $testDFP = (Test-Path $dfp)
+
+        if ($testDFP -eq $false)
+        {
+
+            sleep -s $detikS
+            Write-Host "dfp has been deleted from" -NoNewline -ForegroundColor Cyan #Yellow #white #Red #Green #Cyan
+            Write-Host " $PSScriptRoot\arch\" -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+            sleep -s $detikS
+
+        }
+
+
+    }
+
+PKTC1
+
+PKTE2
+
 }
 
 
@@ -58,91 +203,201 @@ Function theEXIT    #  EXIT
 
 
 
-###   ###   ###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###   ###   ###
-###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
 
-Write-Host "`n`n###   ###   ###   ###   ###   ###   ###`n"
-Write-Host "REMOVE dfp ... `n "
 
 
 
-$DateHMS1 = get-date -format "yyyy-MM-dd HH.mm.ss" 
-Write-Host "`$DateHMS1        : $DateHMS1"
-
-Write-Host "`$PSScriptRoot    : $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
-
-Write-Host "`$PSCommandPath   : $PSCommandPath "
 
 
 
-###   ###   ###   ###   ###   ###   ###   ###   ###
 
 
 
-$dfp         = "$PSScriptRoot\arch\dfp"
-
-$checkDFPdir = (Test-Path $dfp)
 
 
 
-###   ###   ###   ###   ###   ###   ###   ###   ###
+
+##########   REMOVE dfp etc.   ##########
+##########   REMOVE dfp etc.   ##########
+##########   REMOVE dfp etc.   ##########
+
+
+Write-Host " "
+Write-Host "###   ###   ###   ###   ###   ###   ###"
+Write-Host " "
+Write-Host "REMOVE dfp ..."
 
 
 
-# sleep -s $detikS
+Write-Host " "
+$DateHMS   = get-date -format "yyyy-MM-dd HH.mm.ss" 
+Write-Host "DateHMS          : $DateHMS"
+Write-Host "PSScriptRoot     : $PSScriptRoot " -ForegroundColor Yellow #Yellow #white #Red #Green #Blue
+Write-Host "PSCommandPath    : $PSCommandPath "
 
-if ($checkDFPdir -eq $false)
+Write-Host " "
+
+Write-Host " "
+
+Write-Host "Open the task window? " -NoNewline -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+$continue = Read-Host "[n]no, [Enter]yes"
+
+
+if ($continue -eq "n") {    # "No!". EXIT.
+
+    Write-Host "No!"
+
+    PKTE2
+
+}
+
+
+
+#  CLS
+
+
+
+##########   HASHTABLES   ##########
+#  Hashtable Of Tasks
+$HashOfTask   = [ordered]@{
+
+    'delete dfp'    = 'Delete the whole dfp directory'
+
+    'delete attiny' = 'Delete \dfp\attiny directory'
+
+    'break attiny'  = 'Delete the content of \dfp\attiny directory'
+
+    'delete zip'    = 'Delete \dfp\zip directory'
+
+}
+##########   HASHTABLES   ##########
+
+
+
+
+$theTASK     = ($HashOfTask | Out-Gridview -Title "ANDURIL MAKE. TASKS. BUILD TARGETS" -PassThru)
+
+
+
+if ($null -eq $theTASK) {    #  The Task is NULL!
+
+    Write-Host " "
+    Write-Host "Null. Not processed." -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    Write-Host " "
+
+}
+
+
+
+if ($HashOfTask.Contains($theTASK.Name)) {    # The Task
+
+    Write-Host " "
+    Write-Host "Selected Task    :" $theTASK.Name -ForegroundColor Yellow #Blue #Green #Cyan #Yellow
+    Write-Host " "
+
+    switch ($theTASK.Name) {
+
+        "delete dfp"         {   }
+
+        "delete attiny"      {   }
+
+        "break attiny"       {   }
+
+        "delete zip"         {   }
+
+    }
+
+    Write-Host "`n "
+
+}
+
+
+
+PKTE2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# EXIT . . .
+PKTE2
+
+
+EXIT
+
+EXIT
+
+EXIT
+
+
+
+
+
+if ($testDFP -eq $false)
 {
 
-    sleep -s $detikS
-    Write-Host "`ndfp not found in " -NoNewline
+
+    Write-Host " "
+
+    Write-Host "dfp not found in " -NoNewline
     Write-Host " $PSScriptRoot\arch\" -ForegroundColor Yellow
-    Write-Host "Cannot find path  $dfp  because it does not exist.  LoL!" -ForegroundColor Cyan #Yellow #white #Red #Green #Blue
-    sleep -s $detikS
+    Write-Host "Cannot find path  $dfp  because it does not exist.  LoL!" -ForegroundColor Cyan #Yellow  #Blue
 
 }
 
 
 
-
-
-if ($checkDFPdir -eq $true)
+if ($testDFP -eq $true)
 {
 
-    sleep -s $detikS
-    Write-Host "`ndfp found in" -NoNewline
+
+    Write-Host " "
+    Write-Host "dfp found in" -NoNewline
     Write-Host " $PSScriptRoot\arch\" -NoNewline -ForegroundColor Yellow
 
 
     sleep -s $detikS
     $lsdfp = ls -path $dfp
-    #  Write-Host "  " -NoNewline
     $lsdfp
 
 
-    sleep -s $detikS
-    Write-Host "`n`nDelete dfp directory..."
+    Write-Host " "
+
+    Write-Host " "
+
+    Write-Host "Delete dfp directory..."
 
 
-    # Remove-Item -Path $dfp -Recurse
-    del -Path $dfp -Recurse
+    Remove-Item -Path $dfp -Recurse
 
     sleep -s $detikM
-    sleep -s $detikM
 
 
 
-    sleep -s $detikS
     Write-Host "Recheck dfp ..."
 
 
 
-    $checkDFPdir = (Test-Path $dfp)
+    $testDFP = (Test-Path $dfp)
 
-    if ($checkDFPdir -eq $false)
+    if ($testDFP -eq $false)
     {
 
         sleep -s $detikS
@@ -153,14 +408,6 @@ if ($checkDFPdir -eq $true)
     }
 
 }
-
-
-
-
-
-# EXIT . . .
-theEXIT
-
 
 
 
